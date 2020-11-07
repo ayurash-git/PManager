@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:l="clr-namespace:PManager.WPF"
         xmlns:vm="clr-namespace:PManager.WPF.ViewModels"
-        Title="{Binding Title}" Height="450" Width="800">
-    <Window.DataContext>
-        <vm:MainWindowViewModel/>
-    </Window.DataContext>
+        DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
+        Title="{Binding Title}" 
+        Height="450" Width="800">
+    
     <Grid>
         <TextBox Margin="20" Height="20" VerticalAlignment="Top"
                  Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
