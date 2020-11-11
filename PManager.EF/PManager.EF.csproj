@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PManager.Domain\PManager.Domain.csproj" />
+    <ProjectReference Include="..\PManager.Interfaces\PManager.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

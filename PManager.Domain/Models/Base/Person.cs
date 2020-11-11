@@ -1,6 +1,6 @@
 ﻿namespace PManager.Domain.Models.Base
 {
-    public abstract class Person : EntityInt
+    public abstract class Person : Entity
     {
         //[Required]
         public string FirstName { get; set; }
