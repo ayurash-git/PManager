@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PManager.WPF.Services;
 using PManager.WPF.ViewModels.Base;
+using PManager.EF.Data;
 
 namespace PManager.WPF
 {
@@ -23,6 +24,7 @@ namespace PManager.WPF
         public static IServiceProvider Services => Host.Services;
 
         internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
+            .AddDatabase(host.Configuration.GetSection("Database"))
             .AddServices()
             .AddViewModels()
         ;
