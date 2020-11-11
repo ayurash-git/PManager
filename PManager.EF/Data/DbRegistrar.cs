@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PManager.EF.Context;
+using PManager.WPF.Data;
 
 namespace PManager.EF.Data
 {
@@ -27,6 +26,7 @@ namespace PManager.EF.Data
                         break;
                 }
             })
+            .AddTransient<DbInitializer>()
         ;
     }
 }

@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PManager.EF.Data;
 using PManager.WPF.Services;
 using PManager.WPF.ViewModels.Base;
-using PManager.EF.Data;
 
 namespace PManager.WPF
 {
@@ -32,6 +27,12 @@ namespace PManager.WPF
         protected override async void OnStartup(StartupEventArgs e)
         {
             var host = Host;
+
+            using (var scope = Services.CreateScope())
+                scope.ServiceProvider.GetRequiredService<DbInitializer>().InitializeAsync().Wait();
+            
+            
+
             base.OnStartup(e);
             await host.StartAsync();
         }
