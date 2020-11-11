@@ -29,7 +29,7 @@ namespace PManager.EF.Data
             _logger.LogInformation("Удаление существующей БД выполнено за {0} мс.", timer.ElapsedMilliseconds);
 
             _logger.LogInformation("Миграция БД...");
-            await _db.Database.MigrateAsync();
+            await _db.Database.MigrateAsync().ConfigureAwait(false); 
             _logger.LogInformation("Миграция БД выполнена за {0} мс.", timer.ElapsedMilliseconds);
 
             if (await _db.Jobs.AnyAsync()) return;

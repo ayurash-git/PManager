@@ -9,7 +9,7 @@ using PManager.EF.Context;
 namespace PManager.EF.Migrations
 {
     [DbContext(typeof(PManagerDB))]
-    [Migration("20201111145322_InitialDB")]
+    [Migration("20201111174436_InitialDB")]
     partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
