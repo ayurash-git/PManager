@@ -34,6 +34,21 @@ namespace PManager.EF.Migrations
                     b.ToTable("JobRole");
                 });
 
+            modelBuilder.Entity("PManager.Domain.Models.Gender", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genders");
+                });
+
             modelBuilder.Entity("PManager.Domain.Models.Job", b =>
                 {
                     b.Property<int>("Id")
@@ -75,7 +90,12 @@ namespace PManager.EF.Migrations
             modelBuilder.Entity("PManager.Domain.Models.User", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -85,6 +105,9 @@ namespace PManager.EF.Migrations
                     b.Property<string>("FirstName")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("GenderId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -109,6 +132,8 @@ namespace PManager.EF.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GenderId");
+
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
@@ -131,9 +156,22 @@ namespace PManager.EF.Migrations
 
             modelBuilder.Entity("PManager.Domain.Models.User", b =>
                 {
-                    b.HasOne("PManager.Domain.Models.Role", null)
+                    b.HasOne("PManager.Domain.Models.Gender", "Gender")
+                        .WithMany("Users")
+                        .HasForeignKey("GenderId");
+
+                    b.HasOne("PManager.Domain.Models.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId");
+
+                    b.Navigation("Gender");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("PManager.Domain.Models.Gender", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("PManager.Domain.Models.Role", b =>

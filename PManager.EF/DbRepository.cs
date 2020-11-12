@@ -95,21 +95,17 @@ namespace PManager.EF
         #endregion
     }
 
-    // class JobsRepository : DbRepository<Job>
-    // {
-    //     public override IQueryable<Job> Items => base.Items.Include(item => item.Roles);
-    //     public JobsRepository(PManagerDB db) : base(db) { }
-    // }
-    //
-    // class RolesRepository : DbRepository<Role>
-    // {
-    //     public override IQueryable<Role> Items => base.Items.Include(item => item.Users);
-    //     public RolesRepository(PManagerDB db) : base(db) { }
-    // }
-    //
-    // class UsersRepository : DbRepository<User>
-    // {
-    //     public override IQueryable<User> Items => base.Items.Include(item => item.Role);
-    //     public UsersRepository(PManagerDB db) : base(db) { }
-    // }
+    class JobsRepository : DbRepository<Job>
+    {
+        public override IQueryable<Job> Items => base.Items.Include(item => item.Roles);
+        public JobsRepository(PManagerDB db) : base(db) { }
+    }
+    
+    class UsersRepository : DbRepository<User>
+    {
+        public override IQueryable<User> Items => base.Items
+            .Include(item => item.Role)
+            .Include(item => item.Gender);
+        public UsersRepository(PManagerDB db) : base(db) { }
+    }
 }

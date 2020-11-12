@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,9 +26,11 @@ namespace PManager.EF.Data
             var timer = Stopwatch.StartNew();
             _logger.LogInformation("Инициализация БД...");
 
-            _logger.LogInformation("Удаление существующей БД...");
-            await _db.Database.EnsureDeletedAsync().ConfigureAwait(false);
-            _logger.LogInformation("Удаление существующей БД выполнено за {0} мс.", timer.ElapsedMilliseconds);
+            
+
+            // _logger.LogInformation("Удаление существующей БД...");
+            // await _db.Database.EnsureDeletedAsync().ConfigureAwait(false);
+            // _logger.LogInformation("Удаление существующей БД выполнено за {0} мс.", timer.ElapsedMilliseconds);
 
             _logger.LogInformation("Миграция БД...");
             await _db.Database.MigrateAsync().ConfigureAwait(false); 
@@ -37,24 +40,24 @@ namespace PManager.EF.Data
 
             InitializeJobs().Wait();
             InitializeRoles().Wait();
-            //InitializeGenders().Wait();
+            InitializeGenders().Wait();
             InitializeRolesJobs().Wait();
             InitializeUsers().Wait();
-            ModifyUsers().Wait();
+            //ModifyUsers().Wait();
             
             _logger.LogInformation("Инициализация БД выполнена за {0} с.", timer.Elapsed.TotalSeconds);
         }
         /// <summary>
         /// Genders Initialization
         /// </summary>
-        // private async Task InitializeGenders()
-        // {
-        //     var male   = new Gender { Id = 1, Name = "Male" };
-        //     var female = new Gender { Id = 2, Name = "Female" };
-        //
-        //     await _db.Genders.AddRangeAsync(male, female);
-        //     await _db.SaveChangesAsync();
-        // }
+        private async Task InitializeGenders()
+        {
+            var male   = new Gender { Id = 1, Name = "Male" };
+            var female = new Gender { Id = 2, Name = "Female" };
+        
+            await _db.Genders.AddRangeAsync(male, female);
+            await _db.SaveChangesAsync();
+        }
 
         
         /// <summary>
@@ -189,21 +192,24 @@ namespace PManager.EF.Data
             {
                 new User
                 {
-                    Id = 1,
                     Username = "ayurash",
                     Password = "123",
                     Email = "ayurash@me.com",
                     FirstName = "Алексей",
-                    SecondName = "Юраш"
+                    SecondName = "Юраш",
+                    RoleId = 7,
+                    GenderId = 1,
+                    Birthday = new DateTime(1977, 7, 27)
                 },
                 new User
                 {
-                    Id = 2,
                     Username = "vaverin",
                     Password = "123",
                     Email = "vaverin@postpro18.com",
                     FirstName = "Валерий",
-                    SecondName = "Аверин"
+                    SecondName = "Аверин",
+                    RoleId = 7,
+                    GenderId = 1
                 }
             };
             
@@ -217,13 +223,13 @@ namespace PManager.EF.Data
         /// <summary>
         /// Users Modify
         /// </summary>
-        private async Task ModifyUsers()
-        {
-            _db.Users.FirstOrDefaultAsync(user => user.Username == "ayurash").Result.RoleId = 7;
-            _db.Users.FirstOrDefaultAsync(user => user.Username == "vaverin").Result.RoleId = 8;
-            
-            await _db.SaveChangesAsync();
-        
-        }
+        // private async Task ModifyUsers()
+        // {
+        //     _db.Users.FirstOrDefaultAsync(user => user.Username == "ayurash").Result.RoleId = 7;
+        //     _db.Users.FirstOrDefaultAsync(user => user.Username == "vaverin").Result.RoleId = 7;
+        //     
+        //     await _db.SaveChangesAsync();
+        //
+        // }
     }
 }

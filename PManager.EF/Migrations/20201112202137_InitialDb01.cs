@@ -1,11 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PManager.EF.Migrations
 {
-    public partial class InitialDb : Migration
+    public partial class InitialDb01 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Genders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Genders", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Jobs",
                 columns: table => new
@@ -60,18 +73,27 @@ namespace PManager.EF.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     SecondName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    RoleId = table.Column<int>(type: "int", nullable: true)
+                    Birthday = table.Column<DateTime>(type: "date", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: true),
+                    GenderId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Genders_GenderId",
+                        column: x => x.GenderId,
+                        principalTable: "Genders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Users_Roles_RoleId",
                         column: x => x.RoleId,
@@ -84,6 +106,11 @@ namespace PManager.EF.Migrations
                 name: "IX_JobRole_RolesId",
                 table: "JobRole",
                 column: "RolesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_GenderId",
+                table: "Users",
+                column: "GenderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",
@@ -101,6 +128,9 @@ namespace PManager.EF.Migrations
 
             migrationBuilder.DropTable(
                 name: "Jobs");
+
+            migrationBuilder.DropTable(
+                name: "Genders");
 
             migrationBuilder.DropTable(
                 name: "Roles");

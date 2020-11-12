@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PManager.Domain.Models;
 
@@ -10,8 +11,8 @@ namespace PManager.EF.EntityConfigs
         {
             builder
                 .HasKey(c => c.Id);
-            builder.Property(c => c.Id)
-                .ValueGeneratedNever();
+            // builder.Property(c => c.Id)
+            //     .ValueGeneratedNever();
             builder.Property(r => r.Username)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -27,6 +28,8 @@ namespace PManager.EF.EntityConfigs
                 .HasMaxLength(50);
             builder.Property(r => r.Phone)
                 .HasMaxLength(20);
+            builder.Property(r => r.Birthday)
+                .HasColumnType("date");
         }
     }
 }
