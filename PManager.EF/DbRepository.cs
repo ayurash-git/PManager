@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using PManager.Domain.Models;
 using PManager.Domain.Models.Base;
 using PManager.EF.Context;
 using PManager.Interfaces;
@@ -92,5 +93,23 @@ namespace PManager.EF
         }
 
         #endregion
+    }
+
+    class JobsRepository : DbRepository<Job>
+    {
+        public override IQueryable<Job> Items => base.Items.Include(item => item.Roles);
+        public JobsRepository(PManagerDB db) : base(db) { }
+    }
+
+    class RolesRepository : DbRepository<Role>
+    {
+        public override IQueryable<Role> Items => base.Items.Include(item => item.Jobs);
+        public RolesRepository(PManagerDB db) : base(db) { }
+    }
+
+    class UsersRepository : DbRepository<User>
+    {
+        public override IQueryable<User> Items => base.Items.Include(item => item.Role);
+        public UsersRepository(PManagerDB db) : base(db) { }
     }
 }

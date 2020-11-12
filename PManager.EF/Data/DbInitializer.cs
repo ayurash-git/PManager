@@ -76,7 +76,7 @@ namespace PManager.EF.Data
 
         }
 
-        private const int RolesCount = 10;
+        private const int RolesCount = 11;
         private Role[] _roles;
         private async Task InitializeRoles()
         {
@@ -114,6 +114,29 @@ namespace PManager.EF.Data
             }, Details = "3d график" };
             _roles[8] = new Role { Id = 9,  Name = "Animator",           Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 14) }, Details = "Аниматор" };
             _roles[9] = new Role { Id = 10, Name = "3d Modeler",         Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 11) }, Details = "3d Modeler" };
+            _roles[10] = new Role
+            {
+                Id = 11,
+                Name = "CG Generalist",
+                Jobs = new List<Job>
+                {
+                    _db.Jobs.FirstOrDefault(j => j.Id == 3),
+                    _db.Jobs.FirstOrDefault(j => j.Id == 4),
+                    _db.Jobs.FirstOrDefault(j => j.Id == 5),
+                    _db.Jobs.FirstOrDefault(j => j.Id == 6),
+                    _db.Jobs.FirstOrDefault(j => j.Id == 7),
+                    _db.Jobs.FirstOrDefault(j => j.Id == 8),
+                    _db.Jobs.FirstOrDefault(j => j.Id == 9),
+                    _db.Jobs.FirstOrDefault(j => j.Id == 10),
+                    _db.Jobs.FirstOrDefault(j => j.Id == 11),
+                    _db.Jobs.FirstOrDefault(j => j.Id == 12),
+                    _db.Jobs.FirstOrDefault(j => j.Id == 13),
+                    _db.Jobs.FirstOrDefault(j => j.Id == 14),
+                    _db.Jobs.FirstOrDefault(j => j.Id == 15),
+                    _db.Jobs.FirstOrDefault(j => j.Id == 18)
+                },
+                Details = "CG Generalist"
+            };
 
             await _db.Roles.AddRangeAsync(_roles);
             await _db.SaveChangesAsync();

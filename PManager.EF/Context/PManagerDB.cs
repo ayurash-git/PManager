@@ -8,6 +8,7 @@ namespace PManager.EF.Context
     {
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public PManagerDB(DbContextOptions<PManagerDB> options) : base(options) { }
 
@@ -15,6 +16,7 @@ namespace PManager.EF.Context
         {
             modelBuilder.ApplyConfiguration(new JobConfig());
             modelBuilder.ApplyConfiguration(new RoleConfig());
+            modelBuilder.ApplyConfiguration(new UserConfig());
 
 
             base.OnModelCreating(modelBuilder);

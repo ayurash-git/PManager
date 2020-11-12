@@ -10,6 +10,7 @@ namespace PManager.WPF.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
+        private readonly IRepository<Role> _rolesRepository;
         private readonly IRepository<Job> _jobsRepository;
 
         #region Заголовок Окна
@@ -24,10 +25,12 @@ namespace PManager.WPF.ViewModels
 
         #endregion
 
-        // public MainWindowViewModel(IRepository<Job> jobsRepository)
+        // public MainWindowViewModel(IRepository<Job> jobsRepository, IRepository<Role> rolesRepository)
         // {
+        //     _rolesRepository = rolesRepository;
         //     _jobsRepository = jobsRepository;
         //     var jobs = jobsRepository.Items.Take(7).ToArray();
+        //     var roles = rolesRepository.Items.Take(7).ToArray();
         // }
     }
 }
