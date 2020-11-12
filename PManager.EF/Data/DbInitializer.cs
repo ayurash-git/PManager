@@ -37,127 +37,193 @@ namespace PManager.EF.Data
 
             InitializeJobs().Wait();
             InitializeRoles().Wait();
-            InitializeGenders().Wait();
+            //InitializeGenders().Wait();
+            InitializeRolesJobs().Wait();
+            InitializeUsers().Wait();
+            ModifyUsers().Wait();
             
             _logger.LogInformation("Инициализация БД выполнена за {0} с.", timer.Elapsed.TotalSeconds);
         }
+        /// <summary>
+        /// Genders Initialization
+        /// </summary>
+        // private async Task InitializeGenders()
+        // {
+        //     var male   = new Gender { Id = 1, Name = "Male" };
+        //     var female = new Gender { Id = 2, Name = "Female" };
+        //
+        //     await _db.Genders.AddRangeAsync(male, female);
+        //     await _db.SaveChangesAsync();
+        // }
+
         
-        private async Task InitializeGenders()
-        {
-            var male   = new Gender { Id = 1, Name = "Male" };
-            var female = new Gender { Id = 2, Name = "Female" };
-
-            await _db.Genders.AddRangeAsync(male, female);
-            await _db.SaveChangesAsync();
-        }
-
-
-        private const int JobsCount = 18;
-        private Job[] _jobs;
+        /// <summary>
+        /// Jobs Initialization
+        /// </summary>
         private async Task InitializeJobs()
         {
             var timer = Stopwatch.StartNew();
             _logger.LogInformation("Инициализация таблицы 'Jobs' (типы работ)...");
 
-            _jobs = new Job[JobsCount];
-            _jobs[0]  = new Job{ Id = 1,    Name = "Editing",               Details = "Монтаж" };
-            _jobs[1]  = new Job{ Id = 2,    Name = "ColorCorrection",       Details = "Цветокоррекция" };
-            _jobs[2]  = new Job{ Id = 3,    Name = "2d VFX",                Details = "2d - эффекты" };
-            _jobs[3]  = new Job{ Id = 4,    Name = "2d Compose",            Details = "2d композ" };
-            _jobs[4]  = new Job{ Id = 5,    Name = "2d Tracking",           Details = "2d трекинг" };
-            _jobs[5]  = new Job{ Id = 6,    Name = "3d VFX",                Details = "3d - эффекты" };
-            _jobs[6]  = new Job{ Id = 7,    Name = "3d Tracking",           Details = "3d трекинг камеры, сцены" };
-            _jobs[7]  = new Job{ Id = 8,    Name = "Keying",                Details = "Кеинг" };
-            _jobs[8]  = new Job{ Id = 9,    Name = "Rotoscoping",           Details = "Ротоскоп (ручное маскирование объектов)" };
-            _jobs[9]  = new Job{ Id = 10,   Name = "Cleanup",               Details = "Клинап" };
-            _jobs[10] = new Job{ Id = 11,   Name = "3d Modeling",           Details = "3d моделирование" };
-            _jobs[11] = new Job{ Id = 12,   Name = "Texturing",             Details = "Текстуринг" };
-            _jobs[12] = new Job{ Id = 13,   Name = "Shading",               Details = "Шейдинг" };
-            _jobs[13] = new Job{ Id = 14,   Name = "Animation",             Details = "Анимация" };
-            _jobs[14] = new Job{ Id = 15,   Name = "Rendering",             Details = "Рендеринг" };
-            _jobs[15] = new Job{ Id = 16,   Name = "Project Organization",  Details = "Организация проекта" };
-            _jobs[16] = new Job{ Id = 17,   Name = "Project Management",    Details = "Ведение проекта" };
-            _jobs[17] = new Job{ Id = 18,   Name = "Creative",              Details = "Креатив" };
+            var jobs = new List<Job>
+            {
+                new Job {Id = 1, Name = "Editing", Details = "Монтаж"},
+                new Job {Id = 2, Name = "ColorCorrection", Details = "Цветокоррекция"},
+                new Job {Id = 3, Name = "2d VFX", Details = "2d - эффекты"},
+                new Job {Id = 4, Name = "2d Compose", Details = "2d композ"},
+                new Job {Id = 5, Name = "2d Tracking", Details = "2d трекинг"},
+                new Job {Id = 6, Name = "3d VFX", Details = "3d - эффекты"},
+                new Job {Id = 7, Name = "3d Tracking", Details = "3d трекинг камеры, сцены"},
+                new Job {Id = 8, Name = "Keying", Details = "Кеинг"},
+                new Job {Id = 9, Name = "Rotoscoping", Details = "Ротоскоп (ручное маскирование объектов)"},
+                new Job {Id = 10, Name = "Cleanup", Details = "Клинап"},
+                new Job {Id = 11, Name = "3d Modeling", Details = "3d моделирование"},
+                new Job {Id = 12, Name = "Texturing", Details = "Текстуринг"},
+                new Job {Id = 13, Name = "Shading", Details = "Шейдинг"},
+                new Job {Id = 14, Name = "Animation", Details = "Анимация"},
+                new Job {Id = 15, Name = "Rendering", Details = "Рендеринг"},
+                new Job {Id = 16, Name = "Project Organization", Details = "Организация проекта"},
+                new Job {Id = 17, Name = "Project Management", Details = "Ведение проекта"},
+                new Job {Id = 18, Name = "Creative", Details = "Креатив"},
+                new Job {Id = 19, Name = "Sound Design", Details = "Sound Design"}
+            };
 
-            await _db.Jobs.AddRangeAsync(_jobs);
+            await _db.Jobs.AddRangeAsync(jobs);
             await _db.SaveChangesAsync();
 
             _logger.LogInformation("Инициализация таблицы 'Jobs' выполнена за {0} с.", timer.Elapsed.TotalSeconds);
-
         }
 
-        private const int RolesCount = 11;
-        private Role[] _roles;
+        
+        
+        /// <summary>
+        /// Roles Initialization
+        /// </summary>
         private async Task InitializeRoles()
         {
             var timer = Stopwatch.StartNew();
             _logger.LogInformation("Инициализация таблицы 'Roles' (роли)...");
 
-            _roles = new Role[RolesCount];
-            _roles[0] = new Role { Id = 1,  Name = "Producer",           Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 16) }, Details = "Продюсер проекта" };
-            _roles[1] = new Role { Id = 2,  Name = "Director",           Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 18) }, Details = "Режиссер проекта" };
-            _roles[2] = new Role { Id = 3,  Name = "Art Director",       Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 18) }, Details = "Art Director" };
-            _roles[3] = new Role { Id = 4,  Name = "Manager",            Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 17) }, Details = "Менеджер проекта" };
-            _roles[4] = new Role { Id = 5,  Name = "Color Grader",       Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 2) },  Details = "Специалист по цветокоррекции" };
-            _roles[5] = new Role { Id = 6,  Name = "Editor",             Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 1) },  Details = "Монтажер" };
-            _roles[6] = new Role { Id = 7,  Name = "2d Artist",          Jobs = new List<Job>
+            var roles = new List<Role>
             {
-                _db.Jobs.FirstOrDefault(j => j.Id == 3), 
-                _db.Jobs.FirstOrDefault(j => j.Id == 4),
-                _db.Jobs.FirstOrDefault(j => j.Id == 5),
-                _db.Jobs.FirstOrDefault(j => j.Id == 7),
-                _db.Jobs.FirstOrDefault(j => j.Id == 8),
-                _db.Jobs.FirstOrDefault(j => j.Id == 9),
-                _db.Jobs.FirstOrDefault(j => j.Id == 10),
-                _db.Jobs.FirstOrDefault(j => j.Id == 12),
-                _db.Jobs.FirstOrDefault(j => j.Id == 18)
-            }, Details = "2d график" };
-            _roles[7] = new Role { Id = 8,  Name = "3d Artist",          Jobs = new List<Job>
-            {
-                _db.Jobs.FirstOrDefault(j => j.Id == 6),
-                _db.Jobs.FirstOrDefault(j => j.Id == 7),
-                _db.Jobs.FirstOrDefault(j => j.Id == 11),
-                _db.Jobs.FirstOrDefault(j => j.Id == 12),
-                _db.Jobs.FirstOrDefault(j => j.Id == 13),
-                _db.Jobs.FirstOrDefault(j => j.Id == 14),
-                _db.Jobs.FirstOrDefault(j => j.Id == 15)
-            }, Details = "3d график" };
-            _roles[8] = new Role { Id = 9,  Name = "Animator",           Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 14) }, Details = "Аниматор" };
-            _roles[9] = new Role { Id = 10, Name = "3d Modeler",         Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 11) }, Details = "3d Modeler" };
-            _roles[10] = new Role
-            {
-                Id = 11,
-                Name = "CG Generalist",
-                Jobs = new List<Job>
-                {
-                    _db.Jobs.FirstOrDefault(j => j.Id == 3),
-                    _db.Jobs.FirstOrDefault(j => j.Id == 4),
-                    _db.Jobs.FirstOrDefault(j => j.Id == 5),
-                    _db.Jobs.FirstOrDefault(j => j.Id == 6),
-                    _db.Jobs.FirstOrDefault(j => j.Id == 7),
-                    _db.Jobs.FirstOrDefault(j => j.Id == 8),
-                    _db.Jobs.FirstOrDefault(j => j.Id == 9),
-                    _db.Jobs.FirstOrDefault(j => j.Id == 10),
-                    _db.Jobs.FirstOrDefault(j => j.Id == 11),
-                    _db.Jobs.FirstOrDefault(j => j.Id == 12),
-                    _db.Jobs.FirstOrDefault(j => j.Id == 13),
-                    _db.Jobs.FirstOrDefault(j => j.Id == 14),
-                    _db.Jobs.FirstOrDefault(j => j.Id == 15),
-                    _db.Jobs.FirstOrDefault(j => j.Id == 18)
-                },
-                Details = "CG Generalist"
-            };
+                new Role { Id = 1,  Name = "Producer",              Details = "Продюсер проекта"},
+                new Role { Id = 2,  Name = "Director",              Details = "Режиссер проекта" },
+                new Role { Id = 3,  Name = "Art Director",          Details = "Art Director" },
+                new Role { Id = 4,  Name = "Manager",               Details = "Менеджер проекта" },
+                new Role { Id = 5,  Name = "Color Grader",          Details = "Специалист по цветокоррекции" },
+                new Role { Id = 6,  Name = "Editor",                Details = "Монтажер" },
+                new Role { Id = 7,  Name = "2d Artist",             Details = "2d график" },
+                new Role { Id = 8,  Name = "3d Artist",             Details = "3d график" },
+                new Role { Id = 9,  Name = "Animator",              Details = "Аниматор" },
+                new Role { Id = 10, Name = "3d Modeler",            Details = "3d Modeler" },
+                new Role { Id = 11, Name = "CG Generalist",         Details = "CG Generalist" },
+                new Role { Id = 12, Name = "Sound Producer",        Details = "Sound Producer" }
 
-            await _db.Roles.AddRangeAsync(_roles);
+            };
+            
+            await _db.Roles.AddRangeAsync(roles);
             await _db.SaveChangesAsync();
 
             _logger.LogInformation("Инициализация таблицы 'Roles' выполнена за {0} с.", timer.Elapsed.TotalSeconds);
         }
+        
+        
+        /// <summary>
+        /// Roles-Jobs Initialization
+        /// </summary>
+        private async Task InitializeRolesJobs()
+        {
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 1).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 16));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 2).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 18));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 3).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 18));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 4).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 17));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 5).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 5));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 6).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 1));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 7).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 3));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 7).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 4));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 7).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 5));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 7).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 7));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 7).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 8));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 7).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 9));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 7).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 10));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 7).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 12));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 7).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 18));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 8).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 6));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 8).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 7));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 8).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 11));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 8).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 12));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 8).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 13));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 8).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 14));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 8).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 15));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 9).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 14));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 10).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 11));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 10).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 12));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 11).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 3));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 11).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 4));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 11).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 5));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 11).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 6));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 11).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 7));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 11).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 8));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 11).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 9));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 11).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 10));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 11).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 11));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 11).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 12));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 11).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 13));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 11).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 14));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 11).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 15));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 11).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 18));
+            _db.Roles.FirstOrDefaultAsync(r => r.Id == 12).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 19));
+            
+            await _db.SaveChangesAsync();
+        }
 
-        // private async Task InitializeJobsRoles()
-        // {
-        //     _db.Roles.FirstOrDefaultAsync(r => r.Id == 1).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 17));
-        //     await _db.SaveChangesAsync();
-        // }
+        /// <summary>
+        /// Users Initialization
+        /// </summary>
+        private async Task InitializeUsers()
+        {
+            var timer = Stopwatch.StartNew();
+            _logger.LogInformation("Инициализация таблицы 'Users' ...");
+        
+            var users = new List<User>
+            {
+                new User
+                {
+                    Id = 1,
+                    Username = "ayurash",
+                    Password = "123",
+                    Email = "ayurash@me.com",
+                    FirstName = "Алексей",
+                    SecondName = "Юраш"
+                },
+                new User
+                {
+                    Id = 2,
+                    Username = "vaverin",
+                    Password = "123",
+                    Email = "vaverin@postpro18.com",
+                    FirstName = "Валерий",
+                    SecondName = "Аверин"
+                }
+            };
+            
+            await _db.Users.AddRangeAsync(users);
+            await _db.SaveChangesAsync();
+        
+            _logger.LogInformation("Инициализация таблицы 'Users' выполнена за {0} с.", timer.Elapsed.TotalSeconds);
+        }
+
+
+        /// <summary>
+        /// Users Modify
+        /// </summary>
+        private async Task ModifyUsers()
+        {
+            _db.Users.FirstOrDefaultAsync(user => user.Username == "ayurash").Result.RoleId = 7;
+            _db.Users.FirstOrDefaultAsync(user => user.Username == "vaverin").Result.RoleId = 8;
+            
+            await _db.SaveChangesAsync();
+        
+        }
     }
 }

@@ -10,10 +10,10 @@ namespace PManager.EF.Data
     public static class RepositoryRegistrar
     {
         public static IServiceCollection AddRepositoriesInDb(this IServiceCollection services) => services
-            .AddTransient<IRepository<Job>, JobsRepository>()
-            .AddTransient<IRepository<Role>, RolesRepository>()
-            .AddTransient<IRepository<Gender>, DbRepository<Gender>>()
-            .AddTransient<IRepository<User>, UsersRepository>()
+            .AddTransient<IRepository<Job>, DbRepository<Job>>()
+            .AddTransient<IRepository<Role>, DbRepository<Role>>()
+            .AddTransient<IRepository<User>, DbRepository<User>>()
+            //.AddTransient<IRepository<Gender>, DbRepository<Gender>>()
         ;
     }
 }

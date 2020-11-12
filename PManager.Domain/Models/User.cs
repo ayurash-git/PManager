@@ -14,10 +14,10 @@ namespace PManager.Domain.Models
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string Phone { get; set; }
-        public DateTime Birthday { get; set; }
+        //public DateTime Birthday { get; set; } 
 
-        public virtual Role Role { get; set; } = new Role();
-        public virtual Gender Gender { get; set; } = new Gender();
+        public int? RoleId { get; set; }
+        //public virtual Gender Gender { get; set; }// = new Gender();
 
         // public MediaTypeNames.Image Image { get; set; }
     }
