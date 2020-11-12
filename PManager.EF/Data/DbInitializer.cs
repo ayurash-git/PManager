@@ -37,10 +37,20 @@ namespace PManager.EF.Data
 
             InitializeJobs().Wait();
             InitializeRoles().Wait();
-            //InitializeJobsRoles().Wait();
+            InitializeGenders().Wait();
             
             _logger.LogInformation("Инициализация БД выполнена за {0} с.", timer.Elapsed.TotalSeconds);
         }
+        
+        private async Task InitializeGenders()
+        {
+            var male   = new Gender { Id = 1, Name = "Male" };
+            var female = new Gender { Id = 2, Name = "Female" };
+
+            await _db.Genders.AddRangeAsync(male, female);
+            await _db.SaveChangesAsync();
+        }
+
 
         private const int JobsCount = 18;
         private Job[] _jobs;

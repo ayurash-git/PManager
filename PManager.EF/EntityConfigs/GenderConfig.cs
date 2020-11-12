@@ -10,6 +10,8 @@ namespace PManager.EF.EntityConfigs
         {
             builder
                 .HasKey(c => c.Id);
+            builder.Property(c => c.Id)
+                .ValueGeneratedNever();
             builder.Property(r => r.Name)
                 .IsRequired()
                 .HasMaxLength(10);

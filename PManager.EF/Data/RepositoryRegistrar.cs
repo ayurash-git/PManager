@@ -12,6 +12,7 @@ namespace PManager.EF.Data
         public static IServiceCollection AddRepositoriesInDb(this IServiceCollection services) => services
             .AddTransient<IRepository<Job>, JobsRepository>()
             .AddTransient<IRepository<Role>, RolesRepository>()
+            .AddTransient<IRepository<Gender>, DbRepository<Gender>>()
             .AddTransient<IRepository<User>, UsersRepository>()
         ;
     }
