@@ -8,17 +8,17 @@ namespace PManager.EF.Data
 {
     public static class DbRegistrar
     {
-        public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration Configuration) => services
+        public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration) => services
             .AddDbContext<PManagerDB>(opt =>
             {
-                var type = Configuration["Type"];
+                var type = configuration["Type"];
                 switch (type)
                 {
                     case null: throw new InvalidOperationException("Не определен тип БД");
                     default: throw new InvalidOperationException($"Тип подключения {type} не поддерживается");
                     
                     case "MSSQL":
-                        opt.UseSqlServer(Configuration.GetConnectionString(type));
+                        opt.UseSqlServer(configuration.GetConnectionString(type));
                         break;
                     case "InMemory":
                         opt.UseInMemoryDatabase("PManager.db");
@@ -26,6 +26,7 @@ namespace PManager.EF.Data
                 }
             })
             .AddTransient<DbInitializer>()
+            .AddRepositoriesInDb()
         ;
     }
 }

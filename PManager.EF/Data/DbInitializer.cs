@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -18,7 +20,6 @@ namespace PManager.EF.Data
             _logger = logger;
         }
         
-
         public async Task InitializeAsync()
         {
             var timer = Stopwatch.StartNew();
@@ -32,11 +33,12 @@ namespace PManager.EF.Data
             await _db.Database.MigrateAsync().ConfigureAwait(false); 
             _logger.LogInformation("Миграция БД выполнена за {0} мс.", timer.ElapsedMilliseconds);
 
-            if (await _db.Jobs.AnyAsync()) return;
+            if (await _db.Roles.AnyAsync()) return;
 
-            await InitializeJobs();
-            await InitializeRoles();
-
+            InitializeJobs().Wait();
+            InitializeRoles().Wait();
+            //InitializeJobsRoles().Wait();
+            
             _logger.LogInformation("Инициализация БД выполнена за {0} с.", timer.Elapsed.TotalSeconds);
         }
 
@@ -82,16 +84,36 @@ namespace PManager.EF.Data
             _logger.LogInformation("Инициализация таблицы 'Roles' (роли)...");
 
             _roles = new Role[RolesCount];
-            _roles[0] = new Role { Id = 1,  Name = "Producer",           Details = "Продюсер проекта" };
-            _roles[1] = new Role { Id = 2,  Name = "Director",           Details = "Режиссер проекта" };
-            _roles[2] = new Role { Id = 3,  Name = "Art Director",       Details = "Art Director" };
-            _roles[3] = new Role { Id = 4,  Name = "Manager",            Details = "Менеджер проекта" };
-            _roles[4] = new Role { Id = 5,  Name = "Color Grader",       Details = "Специалист по цветокоррекции" };
-            _roles[5] = new Role { Id = 6,  Name = "Editor",             Details = "Монтажер" };
-            _roles[6] = new Role { Id = 7,  Name = "2d Artist",          Details = "2d график" };
-            _roles[7] = new Role { Id = 8,  Name = "3d Artist",          Details = "3d график" };
-            _roles[8] = new Role { Id = 9,  Name = "Animator",           Details = "Аниматор" };
-            _roles[9] = new Role { Id = 10, Name = "3d Modeler",         Details = "3d Modeler" };
+            _roles[0] = new Role { Id = 1,  Name = "Producer",           Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 16) }, Details = "Продюсер проекта" };
+            _roles[1] = new Role { Id = 2,  Name = "Director",           Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 18) }, Details = "Режиссер проекта" };
+            _roles[2] = new Role { Id = 3,  Name = "Art Director",       Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 18) }, Details = "Art Director" };
+            _roles[3] = new Role { Id = 4,  Name = "Manager",            Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 17) }, Details = "Менеджер проекта" };
+            _roles[4] = new Role { Id = 5,  Name = "Color Grader",       Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 2) },  Details = "Специалист по цветокоррекции" };
+            _roles[5] = new Role { Id = 6,  Name = "Editor",             Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 1) },  Details = "Монтажер" };
+            _roles[6] = new Role { Id = 7,  Name = "2d Artist",          Jobs = new List<Job>
+            {
+                _db.Jobs.FirstOrDefault(j => j.Id == 3), 
+                _db.Jobs.FirstOrDefault(j => j.Id == 4),
+                _db.Jobs.FirstOrDefault(j => j.Id == 5),
+                _db.Jobs.FirstOrDefault(j => j.Id == 7),
+                _db.Jobs.FirstOrDefault(j => j.Id == 8),
+                _db.Jobs.FirstOrDefault(j => j.Id == 9),
+                _db.Jobs.FirstOrDefault(j => j.Id == 10),
+                _db.Jobs.FirstOrDefault(j => j.Id == 12),
+                _db.Jobs.FirstOrDefault(j => j.Id == 18)
+            }, Details = "2d график" };
+            _roles[7] = new Role { Id = 8,  Name = "3d Artist",          Jobs = new List<Job>
+            {
+                _db.Jobs.FirstOrDefault(j => j.Id == 6),
+                _db.Jobs.FirstOrDefault(j => j.Id == 7),
+                _db.Jobs.FirstOrDefault(j => j.Id == 11),
+                _db.Jobs.FirstOrDefault(j => j.Id == 12),
+                _db.Jobs.FirstOrDefault(j => j.Id == 13),
+                _db.Jobs.FirstOrDefault(j => j.Id == 14),
+                _db.Jobs.FirstOrDefault(j => j.Id == 15)
+            }, Details = "3d график" };
+            _roles[8] = new Role { Id = 9,  Name = "Animator",           Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 14) }, Details = "Аниматор" };
+            _roles[9] = new Role { Id = 10, Name = "3d Modeler",         Jobs = new List<Job> { _db.Jobs.FirstOrDefault(j => j.Id == 11) }, Details = "3d Modeler" };
 
             await _db.Roles.AddRangeAsync(_roles);
             await _db.SaveChangesAsync();
@@ -99,9 +121,10 @@ namespace PManager.EF.Data
             _logger.LogInformation("Инициализация таблицы 'Roles' выполнена за {0} с.", timer.Elapsed.TotalSeconds);
         }
 
-        // private async Task ItitializeJobsRoles()
+        // private async Task InitializeJobsRoles()
         // {
-        //     
+        //     _db.Roles.FirstOrDefaultAsync(r => r.Id == 1).Result.Jobs.Add(_db.Jobs.FirstOrDefault(j => j.Id == 17));
+        //     await _db.SaveChangesAsync();
         // }
     }
 }
