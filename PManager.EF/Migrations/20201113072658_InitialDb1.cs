@@ -61,31 +61,6 @@ namespace PManager.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Projects",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DateCreate = table.Column<DateTime>(type: "datetime2(0)", precision: 0, nullable: false),
-                    DateStart = table.Column<DateTime>(type: "datetime2(0)", precision: 0, nullable: false),
-                    DateEnd = table.Column<DateTime>(type: "datetime2(0)", precision: 0, nullable: false),
-                    DateDone = table.Column<DateTime>(type: "datetime2(0)", precision: 0, nullable: false),
-                    AgencyId = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Details = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Projects", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Projects_Agencies_AgencyId",
-                        column: x => x.AgencyId,
-                        principalTable: "Agencies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "JobRole",
                 columns: table => new
                 {
@@ -142,6 +117,38 @@ namespace PManager.EF.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Projects",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DateCreate = table.Column<DateTime>(type: "datetime2(0)", precision: 0, nullable: false),
+                    DateStart = table.Column<DateTime>(type: "datetime2(0)", precision: 0, nullable: false),
+                    DateEnd = table.Column<DateTime>(type: "datetime2(0)", precision: 0, nullable: false),
+                    DateDone = table.Column<DateTime>(type: "datetime2(0)", precision: 0, nullable: false),
+                    AgencyId = table.Column<int>(type: "int", nullable: true),
+                    OwnerId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Details = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Projects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Projects_Agencies_AgencyId",
+                        column: x => x.AgencyId,
+                        principalTable: "Agencies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Projects_Users_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_JobRole_RolesId",
                 table: "JobRole",
@@ -151,6 +158,11 @@ namespace PManager.EF.Migrations
                 name: "IX_Projects_AgencyId",
                 table: "Projects",
                 column: "AgencyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Projects_OwnerId",
+                table: "Projects",
+                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_GenderId",
@@ -172,13 +184,13 @@ namespace PManager.EF.Migrations
                 name: "Projects");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "Jobs");
 
             migrationBuilder.DropTable(
                 name: "Agencies");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Genders");

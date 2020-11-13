@@ -12,7 +12,7 @@ namespace PManager.EF.Data
             .AddTransient<IRepository<Role>, DbRepository<Role>>()
             .AddTransient<IRepository<User>, UsersRepository>()
             .AddTransient<IRepository<Agency>, DbRepository<Agency>>()
-            .AddTransient<IRepository<Project>, DbRepository<Project>>()
+            .AddTransient<IRepository<Project>, ProjectsRepository>()
         ;
     }
 }

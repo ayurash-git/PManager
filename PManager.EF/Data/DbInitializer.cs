@@ -26,9 +26,9 @@ namespace PManager.EF.Data
             var timer = Stopwatch.StartNew();
             _logger.LogInformation("Инициализация БД...");
 
-            _logger.LogInformation("Удаление существующей БД...");
-            await _db.Database.EnsureDeletedAsync().ConfigureAwait(false);
-            _logger.LogInformation("Удаление существующей БД выполнено за {0} мс.", timer.ElapsedMilliseconds);
+            // _logger.LogInformation("Удаление существующей БД...");
+            // await _db.Database.EnsureDeletedAsync().ConfigureAwait(false);
+            // _logger.LogInformation("Удаление существующей БД выполнено за {0} мс.", timer.ElapsedMilliseconds);
 
             _logger.LogInformation("Миграция БД...");
             await _db.Database.MigrateAsync().ConfigureAwait(false); 
@@ -274,7 +274,12 @@ namespace PManager.EF.Data
 
             var projects = new List<Project>
             {
-                new Project {Name = "SP Zavod", Agency = _db.Agencies.FirstOrDefault(a => a.Name == "Slava")}
+                new Project
+                {
+                    Name = "SP Zavod", 
+                    Agency = _db.Agencies.FirstOrDefault(a => a.Name == "Slava"),
+                    Owner = _db.Users.FirstOrDefault(u => u.Username == "ayurash")
+                }
             };
 
             await _db.Projects.AddRangeAsync(projects);

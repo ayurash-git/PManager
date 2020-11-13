@@ -108,4 +108,12 @@ namespace PManager.EF
             .Include(item => item.Gender);
         public UsersRepository(PManagerDb db) : base(db) { }
     }
+    class ProjectsRepository : DbRepository<Project>
+    {
+        public override IQueryable<Project> Items => base.Items
+            .Include(item => item.Agency)
+            .Include(item => item.Owner)
+        ;
+        public ProjectsRepository(PManagerDb db) : base(db) { }
+    }
 }

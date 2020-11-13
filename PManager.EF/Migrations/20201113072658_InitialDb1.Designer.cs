@@ -10,7 +10,7 @@ using PManager.EF.Context;
 namespace PManager.EF.Migrations
 {
     [DbContext(typeof(PManagerDb))]
-    [Migration("20201113060949_InitialDb1")]
+    [Migration("20201113072658_InitialDb1")]
     partial class InitialDb1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,9 +130,14 @@ namespace PManager.EF.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int?>("OwnerId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AgencyId");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Projects");
                 });
@@ -229,7 +234,13 @@ namespace PManager.EF.Migrations
                         .WithMany("Projects")
                         .HasForeignKey("AgencyId");
 
+                    b.HasOne("PManager.Domain.Models.User", "Owner")
+                        .WithMany("Projects")
+                        .HasForeignKey("OwnerId");
+
                     b.Navigation("Agency");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("PManager.Domain.Models.User", b =>
@@ -260,6 +271,11 @@ namespace PManager.EF.Migrations
             modelBuilder.Entity("PManager.Domain.Models.Role", b =>
                 {
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("PManager.Domain.Models.User", b =>
+                {
+                    b.Navigation("Projects");
                 });
 #pragma warning restore 612, 618
         }

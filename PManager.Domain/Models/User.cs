@@ -32,8 +32,11 @@ namespace PManager.Domain.Models
                 return Birthday.Year > 1 ? age.ToString() : "Нет данных";
             }
         }
-
+        
         // public string Image { get; set; }
+
+        public virtual ICollection<Project> Projects { get; set; } = new List<Project>();
+
 
         public override string ToString() => $"Username: {Username}";
     }
