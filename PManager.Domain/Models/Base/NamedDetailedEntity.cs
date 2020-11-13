@@ -2,7 +2,6 @@
 {
     public abstract class NamedDetailedEntity : NamedEntity
     {
-        //[Required]
         public string Details { get; set; }
     }
 }

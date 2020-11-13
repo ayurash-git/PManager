@@ -3,10 +3,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PManager.EF.Migrations
 {
-    public partial class InitialDb01 : Migration
+    public partial class InitialDb1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Agencies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Details = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Agencies", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Genders",
                 columns: table => new
@@ -43,6 +58,31 @@ namespace PManager.EF.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Projects",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DateCreate = table.Column<DateTime>(type: "datetime2(0)", precision: 0, nullable: false),
+                    DateStart = table.Column<DateTime>(type: "datetime2(0)", precision: 0, nullable: false),
+                    DateEnd = table.Column<DateTime>(type: "datetime2(0)", precision: 0, nullable: false),
+                    DateDone = table.Column<DateTime>(type: "datetime2(0)", precision: 0, nullable: false),
+                    AgencyId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Details = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Projects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Projects_Agencies_AgencyId",
+                        column: x => x.AgencyId,
+                        principalTable: "Agencies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -108,6 +148,11 @@ namespace PManager.EF.Migrations
                 column: "RolesId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Projects_AgencyId",
+                table: "Projects",
+                column: "AgencyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_GenderId",
                 table: "Users",
                 column: "GenderId");
@@ -124,10 +169,16 @@ namespace PManager.EF.Migrations
                 name: "JobRole");
 
             migrationBuilder.DropTable(
+                name: "Projects");
+
+            migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Jobs");
+
+            migrationBuilder.DropTable(
+                name: "Agencies");
 
             migrationBuilder.DropTable(
                 name: "Genders");

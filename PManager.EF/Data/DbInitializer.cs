@@ -12,10 +12,10 @@ namespace PManager.EF.Data
 {
     public class DbInitializer
     {
-        private readonly PManagerDB _db;
+        private readonly PManagerDb _db;
         private readonly ILogger<DbInitializer> _logger;
 
-        public DbInitializer(PManagerDB db, ILogger<DbInitializer> logger)
+        public DbInitializer(PManagerDb db, ILogger<DbInitializer> logger)
         {
             _db = db;
             _logger = logger;
@@ -26,11 +26,9 @@ namespace PManager.EF.Data
             var timer = Stopwatch.StartNew();
             _logger.LogInformation("Инициализация БД...");
 
-            
-
-            // _logger.LogInformation("Удаление существующей БД...");
-            // await _db.Database.EnsureDeletedAsync().ConfigureAwait(false);
-            // _logger.LogInformation("Удаление существующей БД выполнено за {0} мс.", timer.ElapsedMilliseconds);
+            _logger.LogInformation("Удаление существующей БД...");
+            await _db.Database.EnsureDeletedAsync().ConfigureAwait(false);
+            _logger.LogInformation("Удаление существующей БД выполнено за {0} мс.", timer.ElapsedMilliseconds);
 
             _logger.LogInformation("Миграция БД...");
             await _db.Database.MigrateAsync().ConfigureAwait(false); 
@@ -38,13 +36,15 @@ namespace PManager.EF.Data
 
             if (await _db.Roles.AnyAsync()) return;
 
-            InitializeJobs().Wait();
-            InitializeRoles().Wait();
-            InitializeGenders().Wait();
-            InitializeRolesJobs().Wait();
-            InitializeUsers().Wait();
-            //ModifyUsers().Wait();
-            
+            await InitializeGenders();
+            await InitializeJobs();
+            await InitializeRoles();
+            await InitializeRolesJobs();
+            await InitializeUsers();
+            await InitializeAgencies();
+            await InitializeProjects();
+
+
             _logger.LogInformation("Инициализация БД выполнена за {0} с.", timer.Elapsed.TotalSeconds);
         }
         /// <summary>
@@ -59,7 +59,8 @@ namespace PManager.EF.Data
             await _db.SaveChangesAsync();
         }
 
-        
+        #region JOBS
+
         /// <summary>
         /// Jobs Initialization
         /// </summary>
@@ -96,9 +97,13 @@ namespace PManager.EF.Data
 
             _logger.LogInformation("Инициализация таблицы 'Jobs' выполнена за {0} с.", timer.Elapsed.TotalSeconds);
         }
+        
 
-        
-        
+        #endregion
+
+
+        #region ROLES
+
         /// <summary>
         /// Roles Initialization
         /// </summary>
@@ -129,8 +134,12 @@ namespace PManager.EF.Data
 
             _logger.LogInformation("Инициализация таблицы 'Roles' выполнена за {0} с.", timer.Elapsed.TotalSeconds);
         }
-        
-        
+
+        #endregion
+
+
+        #region ROLES-JOBS
+
         /// <summary>
         /// Roles-Jobs Initialization
         /// </summary>
@@ -180,6 +189,11 @@ namespace PManager.EF.Data
             await _db.SaveChangesAsync();
         }
 
+        #endregion
+
+
+        #region USERS
+
         /// <summary>
         /// Users Initialization
         /// </summary>
@@ -199,6 +213,7 @@ namespace PManager.EF.Data
                     SecondName = "Юраш",
                     RoleId = 7,
                     GenderId = 1,
+                    Phone = "79647973197",
                     Birthday = new DateTime(1977, 7, 27)
                 },
                 new User
@@ -219,17 +234,56 @@ namespace PManager.EF.Data
             _logger.LogInformation("Инициализация таблицы 'Users' выполнена за {0} с.", timer.Elapsed.TotalSeconds);
         }
 
+        #endregion
 
-        /// <summary>
-        /// Users Modify
-        /// </summary>
-        // private async Task ModifyUsers()
-        // {
-        //     _db.Users.FirstOrDefaultAsync(user => user.Username == "ayurash").Result.RoleId = 7;
-        //     _db.Users.FirstOrDefaultAsync(user => user.Username == "vaverin").Result.RoleId = 7;
-        //     
-        //     await _db.SaveChangesAsync();
-        //
-        // }
+
+        #region AGENCIES
+
+        private async Task InitializeAgencies()
+        {
+            var timer = Stopwatch.StartNew();
+            _logger.LogInformation("Инициализация таблицы 'Agencies'...");
+
+            var agencies = new List<Agency>
+            {
+                new Agency {Name = "JWT", FullName = "ООО \"Джэй-Дабл-Ю-Ти\""},
+                new Agency {Name = "Instinct", FullName = "ЗАО \"Инстинкт\""},
+                new Agency {Name = "Star Richers", FullName = "ООО \"Стар Ричерз\""},
+                new Agency {Name = "Ogilvi", FullName = "ООО \"Огилви энд Мейзер\""},
+                new Agency {Name = "Park Production", FullName = "АО \"Парк Продакшн\""},
+                new Agency {Name = "Saatchi & Saatchi", FullName = "Saatchi & Saatchi"},
+                new Agency {Name = "Slava", FullName = "ООО \"СЛАВА Групп\""},
+                new Agency {Name = "Fetish Production", FullName = "ООО \"Фетиш Продакшн\""},
+                new Agency {Name = "Havas Worldwide", FullName = "ООО \"ХАВАС Ворлдвайд\""}
+            };
+
+            await _db.Agencies.AddRangeAsync(agencies);
+            await _db.SaveChangesAsync();
+
+            _logger.LogInformation("Инициализация таблицы 'Agency' выполнена за {0} с.", timer.Elapsed.TotalSeconds);
+        }
+
+        #endregion
+
+        #region PROJECTS
+
+        private async Task InitializeProjects()
+        {
+            var timer = Stopwatch.StartNew();
+            _logger.LogInformation("Инициализация таблицы 'Projects'...");
+
+            var projects = new List<Project>
+            {
+                new Project {Name = "SP Zavod", Agency = _db.Agencies.FirstOrDefault(a => a.Name == "Slava")}
+            };
+
+            await _db.Projects.AddRangeAsync(projects);
+            await _db.SaveChangesAsync();
+
+            _logger.LogInformation("Инициализация таблицы 'Projects' выполнена за {0} с.", timer.Elapsed.TotalSeconds);
+        }
+
+        #endregion
+
     }
 }

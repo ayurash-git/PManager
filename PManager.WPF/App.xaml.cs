@@ -13,8 +13,8 @@ namespace PManager.WPF
     /// </summary>
     public partial class App : Application
     {
-        private static IHost __Host;
-        public static IHost Host => __Host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
+        private static IHost _host;
+        public static IHost Host => _host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
 
         public static IServiceProvider Services => Host.Services;
 
@@ -31,8 +31,6 @@ namespace PManager.WPF
             using (var scope = Services.CreateScope())
                 await scope.ServiceProvider.GetRequiredService<DbInitializer>().InitializeAsync();
             
-            
-
             base.OnStartup(e);
             await host.StartAsync();
         }

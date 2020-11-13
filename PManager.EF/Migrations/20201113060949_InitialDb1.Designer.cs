@@ -9,9 +9,9 @@ using PManager.EF.Context;
 
 namespace PManager.EF.Migrations
 {
-    [DbContext(typeof(PManagerDB))]
-    [Migration("20201112202137_InitialDb01")]
-    partial class InitialDb01
+    [DbContext(typeof(PManagerDb))]
+    [Migration("20201113060949_InitialDb1")]
+    partial class InitialDb1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,6 +34,31 @@ namespace PManager.EF.Migrations
                     b.HasIndex("RolesId");
 
                     b.ToTable("JobRole");
+                });
+
+            modelBuilder.Entity("PManager.Domain.Models.Agency", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Details")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("FullName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Agencies");
                 });
 
             modelBuilder.Entity("PManager.Domain.Models.Gender", b =>
@@ -68,6 +93,48 @@ namespace PManager.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Jobs");
+                });
+
+            modelBuilder.Entity("PManager.Domain.Models.Project", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("AgencyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreate")
+                        .HasPrecision(0)
+                        .HasColumnType("datetime2(0)");
+
+                    b.Property<DateTime>("DateDone")
+                        .HasPrecision(0)
+                        .HasColumnType("datetime2(0)");
+
+                    b.Property<DateTime>("DateEnd")
+                        .HasPrecision(0)
+                        .HasColumnType("datetime2(0)");
+
+                    b.Property<DateTime>("DateStart")
+                        .HasPrecision(0)
+                        .HasColumnType("datetime2(0)");
+
+                    b.Property<string>("Details")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AgencyId");
+
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("PManager.Domain.Models.Role", b =>
@@ -156,6 +223,15 @@ namespace PManager.EF.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PManager.Domain.Models.Project", b =>
+                {
+                    b.HasOne("PManager.Domain.Models.Agency", "Agency")
+                        .WithMany("Projects")
+                        .HasForeignKey("AgencyId");
+
+                    b.Navigation("Agency");
+                });
+
             modelBuilder.Entity("PManager.Domain.Models.User", b =>
                 {
                     b.HasOne("PManager.Domain.Models.Gender", "Gender")
@@ -169,6 +245,11 @@ namespace PManager.EF.Migrations
                     b.Navigation("Gender");
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("PManager.Domain.Models.Agency", b =>
+                {
+                    b.Navigation("Projects");
                 });
 
             modelBuilder.Entity("PManager.Domain.Models.Gender", b =>

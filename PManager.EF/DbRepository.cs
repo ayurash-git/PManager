@@ -12,7 +12,7 @@ namespace PManager.EF
 {
     internal class DbRepository<T> : IRepository<T> where T : Entity, new()
     {
-        private readonly PManagerDB _db;
+        private readonly PManagerDb _db;
         private readonly DbSet<T> _set;
         public virtual IQueryable<T> Items => _set;
         public bool AutoSaveChanges { get; set; } = true;
@@ -21,7 +21,7 @@ namespace PManager.EF
 
         /// <summary> Constructor </summary>
         /// <param name="db"></param>
-        public DbRepository(PManagerDB db)
+        public DbRepository(PManagerDb db)
         {
             _db = db;
             _set = db.Set<T>();
@@ -98,7 +98,7 @@ namespace PManager.EF
     class JobsRepository : DbRepository<Job>
     {
         public override IQueryable<Job> Items => base.Items.Include(item => item.Roles);
-        public JobsRepository(PManagerDB db) : base(db) { }
+        public JobsRepository(PManagerDb db) : base(db) { }
     }
     
     class UsersRepository : DbRepository<User>
@@ -106,6 +106,6 @@ namespace PManager.EF
         public override IQueryable<User> Items => base.Items
             .Include(item => item.Role)
             .Include(item => item.Gender);
-        public UsersRepository(PManagerDB db) : base(db) { }
+        public UsersRepository(PManagerDb db) : base(db) { }
     }
 }

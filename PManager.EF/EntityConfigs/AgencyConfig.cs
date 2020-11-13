@@ -11,8 +11,8 @@ namespace PManager.EF.EntityConfigs
             builder.HasKey(c => c.Id);
 
             builder.Property(r => r.Name)       .IsRequired().HasMaxLength(50);
-            builder.Property(r => r.Details)    .HasMaxLength(500);
             builder.Property(r => r.FullName)   .HasMaxLength(200);
+            builder.Property(r => r.Details)    .HasMaxLength(500);
         }
     }
 }

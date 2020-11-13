@@ -27,16 +27,16 @@ namespace PManager.WPF.ViewModels
         }
 
         #endregion
-
-        public MainWindowViewModel(IRepository<Job> jobsRepository, IRepository<Role> rolesRepository, IRepository<User> usersRepository)
-        {
-            _rolesRepository = rolesRepository;
-            _jobsRepository = jobsRepository;
-            _usersRepository = usersRepository;
-        
-            var jobs = jobsRepository.Items.Take(19).ToArray();
-            var roles = rolesRepository.Items.Take(12).ToArray();
-            var users = usersRepository.Items.Take(2).ToArray();
-        }
+        //
+        // public MainWindowViewModel(IRepository<Job> jobsRepository, IRepository<Role> rolesRepository, IRepository<User> usersRepository)
+        // {
+        //     _rolesRepository = rolesRepository;
+        //     _jobsRepository = jobsRepository;
+        //     _usersRepository = usersRepository;
+        //
+        //     var jobs = jobsRepository.Items.Take(19).ToArray();
+        //     var roles = rolesRepository.Items.Take(12).ToArray();
+        //     var users = usersRepository.Items.Take(2).ToArray();
+        // }
     }
 }

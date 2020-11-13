@@ -9,7 +9,7 @@ namespace PManager.EF.Data
     public static class DbRegistrar
     {
         public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration) => services
-            .AddDbContext<PManagerDB>(opt =>
+            .AddDbContext<PManagerDb>(opt =>
             {
                 var type = configuration["Type"];
                 switch (type)

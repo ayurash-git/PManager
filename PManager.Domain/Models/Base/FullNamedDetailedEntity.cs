@@ -1,7 +1,7 @@
 ﻿namespace PManager.Domain.Models.Base
 {
-    public abstract class FullNamedDetailedEntity : NamedDetailedEntity
+    public abstract class FullNamedDetailedEntity : FullNamedEntity
     {
-        public string FullName { get; set; }
+        public string Details { get; set; } 
     }
 }
