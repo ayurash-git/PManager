@@ -33,7 +33,7 @@ namespace PManager.Domain.Models
             }
         }
 
-        // public MediaTypeNames.Image Image { get; set; }
+        // public string Image { get; set; }
 
         public override string ToString() => $"Username: {Username}";
     }

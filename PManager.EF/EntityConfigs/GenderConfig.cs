@@ -8,13 +8,9 @@ namespace PManager.EF.EntityConfigs
     {
         public void Configure(EntityTypeBuilder<Gender> builder)
         {
-            builder
-                .HasKey(c => c.Id);
-            builder.Property(c => c.Id)
-                .ValueGeneratedNever();
-            builder.Property(r => r.Name)
-                .IsRequired()
-                .HasMaxLength(10);
+            builder.HasKey(c => c.Id);
+            builder.Property(c => c.Id)     .ValueGeneratedNever();
+            builder.Property(r => r.Name)   .IsRequired().HasMaxLength(10);
         }
     }
 }

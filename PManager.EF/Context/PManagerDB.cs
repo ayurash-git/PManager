@@ -10,6 +10,7 @@ namespace PManager.EF.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Gender> Genders { get; set; }
+        public DbSet<Project> Projects { get; set; }
 
         public PManagerDB(DbContextOptions<PManagerDB> options) : base(options) { }
 
@@ -19,6 +20,7 @@ namespace PManager.EF.Context
             modelBuilder.ApplyConfiguration(new RoleConfig());
             modelBuilder.ApplyConfiguration(new GenderConfig());
             modelBuilder.ApplyConfiguration(new UserConfig());
+            modelBuilder.ApplyConfiguration(new ProjectConfig());
 
 
             base.OnModelCreating(modelBuilder);
