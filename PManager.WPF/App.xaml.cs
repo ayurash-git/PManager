@@ -13,7 +13,7 @@ namespace PManager.WPF
     /// </summary>
     public partial class App : Application
     {
-        private static IHost _host;
+        private static IHost? _host;
         public static IHost Host => _host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
 
         public static IServiceProvider Services => Host.Services;
