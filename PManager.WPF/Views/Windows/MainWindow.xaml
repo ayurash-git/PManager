@@ -9,9 +9,16 @@
         Title="{Binding Title}" 
         Height="450" Width="800">
     
-    <Grid>
-        <TextBox Margin="20" Height="20" VerticalAlignment="Top"
-                 Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
+    <DockPanel>
+        <!-- <TextBox Margin="20" Height="20" VerticalAlignment="Top" -->
+        <!--          Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/> -->
 
-    </Grid>
+        <Menu IsMainMenu="True">
+            <MenuItem Header="All Projects" Command="{Binding ShowAllProjectsViewCommand}"/>
+            <MenuItem Header="By Date" Command="{Binding ShowByDateViewCommand}"/>
+        </Menu>
+        <Grid>
+            <ContentControl Content="{Binding CurrentViewModel}"></ContentControl>
+        </Grid>
+    </DockPanel>
 </Window>

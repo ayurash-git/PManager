@@ -1,0 +1,29 @@
+<svg id="Logo_login" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="84" height="100" viewBox="0 0 84 100">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Mask_2056x256" width="84" height="100" rx="10" fill="#1e1f25"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#575860"/>
+      <stop offset="1" stop-color="#26262d"/>
+    </linearGradient>
+    <filter id="Neckband_dark" x="-15" y="-10" width="114" height="114" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-opacity="0.302"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient-2" x1="0.5" y1="0.091" x2="0.5" y2="0.778" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#a8a8a8"/>
+    </linearGradient>
+  </defs>
+  <g id="icon_256x256" clip-path="url(#clip-path)">
+    <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Neckband_dark)">
+      <path id="Neckband_dark-2" data-name="Neckband_dark" d="M83.723-.5l-42,84-42-84H11.535L41.723,59.875,71.91-.5Z" transform="translate(0.28 0.5)" fill="url(#linear-gradient)"/>
+    </g>
+    <path id="Neckband_white" d="M65.91,59.875,96.1-.5H35.723Z" transform="translate(-23.91 0.5)" fill="url(#linear-gradient-2)"/>
+    <path id="Necktie" d="M107.343,4l3.177,6.4a.984.984,0,0,1,.074.679l-6.386,25.543a.985.985,0,0,0,.074.679l6.832,13.663a.984.984,0,0,0,1.761,0L119.708,37.3a.985.985,0,0,0,.074-.679L113.4,11.075a.984.984,0,0,1,.071-.672L116.53,4Z" transform="translate(-69.995 -4)" fill="#1b1e24"/>
+  </g>
+</svg>

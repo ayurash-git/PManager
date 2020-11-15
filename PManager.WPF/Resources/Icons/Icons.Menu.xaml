@@ -1,0 +1,199 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+
+    <!-- Projects -->
+    
+    <DrawingImage x:Key="Icons.Menu.Projects">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z" >
+                <DrawingGroup.Transform>
+                    <TranslateTransform X="0" Y="22" />
+                </DrawingGroup.Transform>
+                <GeometryDrawing>
+                    <GeometryDrawing.Brush>
+                        <SolidColorBrush Color="{StaticResource IconColor1}" Opacity="0" />
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <DrawingGroup Transform="1,0,0,1,0,27">
+                    <GeometryDrawing Geometry="F1 M24,24z M0,0z M21,-7L9,-7A2,2,0,0,1,7,-9L7,-12 15,-12A2,2,0,0,0,17,-14L17,-18 21,-18A2,2,0,0,1,23,-16L23,-9A2,2,0,0,1,21,-7z">
+                        <GeometryDrawing.Brush>
+                            <SolidColorBrush Color="{StaticResource IconColor1}" Opacity="0.5" />
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup>
+                <DrawingGroup Transform="1,0,0,1,-1,26">
+                    <GeometryDrawing Brush="{StaticResource IconBrush1}" Geometry="F1 M24,24z M0,0z M16,-11L4,-11A2,2,0,0,1,2,-13L2,-20A2,2,0,0,1,4,-22L16,-22A2,2,0,0,1,18,-20L18,-13A2,2,0,0,1,16,-11z M9,-19A0.5,0.5,0,0,0,8.5,-18.5L8.5,-14.5A0.5,0.5,0,0,0,9,-14A0.5,0.5,0,0,0,9.3,-14.1L11.967,-16.1A0.5,0.5,0,0,0,12.167,-16.5A0.5,0.5,0,0,0,11.967,-16.9L9.3,-18.9A0.493,0.493,0,0,0,9,-19z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    
+    <!-- Star -->
+
+    <DrawingImage x:Key="Icons.Menu.Star">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <DrawingGroup.Transform>
+                    <TranslateTransform X="0" Y="19.493999481201172" />
+                </DrawingGroup.Transform>
+                <GeometryDrawing>
+                    <GeometryDrawing.Brush>
+                        <SolidColorBrush Color="{StaticResource IconColor1}" Opacity="0" />
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <DrawingGroup Transform="1,0,0,1,1.506,22.493">
+                    <GeometryDrawing Brush="{StaticResource IconBrush1}" Geometry="F1 M24,24z M0,0z M14.859,-8.713L19.208,-11.987A0.716,0.716,0,0,0,19.456,-12.787A0.716,0.716,0,0,0,18.777,-13.276L13.035,-13.276 11.174,-19A0.716,0.716,0,0,0,10.493,-19.494A0.716,0.716,0,0,0,9.813,-19L7.952,-13.274 2.209,-13.274A0.716,0.716,0,0,0,1.53,-12.785A0.716,0.716,0,0,0,1.778,-11.985L6.128,-8.713 4.55,-2.976A0.715,0.715,0,0,0,4.843,-2.191A0.716,0.716,0,0,0,5.68,-2.222L10.493,-5.976 15.306,-2.222A0.716,0.716,0,0,0,16.143,-2.191A0.715,0.715,0,0,0,16.436,-2.976z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Clock -->
+    <DrawingImage x:Key="Icons.Menu.Clock">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <DrawingGroup.Transform>
+                    <TranslateTransform X="112" Y="120" />
+                </DrawingGroup.Transform>
+                <GeometryDrawing>
+                    <GeometryDrawing.Brush>
+                        <SolidColorBrush Color="{StaticResource IconColor1}" Opacity="0" />
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <DrawingGroup Transform="1,0,0,1,116,124">
+                    <GeometryDrawing Brush="{StaticResource IconBrush1}" Geometry="F1 M24,24z M0,0z M-104,-104A8.008,8.008,0,0,1,-112,-112A8.009,8.009,0,0,1,-104,-120A8.009,8.009,0,0,1,-96,-112A8.009,8.009,0,0,1,-104,-104z M-104,-118A0.5,0.5,0,0,0,-104.5,-117.5L-104.5,-112A0.5,0.5,0,0,0,-104.325,-111.618L-104.315,-111.607 -104.298,-111.59 -101.293,-108.585A0.493,0.493,0,0,0,-100.94,-108.438A0.494,0.494,0,0,0,-100.586,-108.585A0.5,0.5,0,0,0,-100.44,-108.939A0.5,0.5,0,0,0,-100.586,-109.293L-103.5,-112.207 -103.5,-117.5A0.5,0.5,0,0,0,-104,-118z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Update -->
+    <DrawingImage x:Key="Icons.Menu.Update">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <DrawingGroup.Transform>
+                    <TranslateTransform X="0" Y="20" />
+                </DrawingGroup.Transform>
+                <GeometryDrawing>
+                    <GeometryDrawing.Brush>
+                        <SolidColorBrush Color="{StaticResource IconColor1}" Opacity="0" />
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <DrawingGroup Transform="1,0,0,1,0,24">
+                    <GeometryDrawing Brush="{StaticResource IconBrush1}" Geometry="F0 M24,24z M0,0z M6,-12A6,6,0,0,0,12,-6A6,6,0,0,0,15.857,-7.4L17.143,-5.868A8,8,0,0,1,12,-4A8,8,0,0,1,4,-12L1,-12 5,-17 9,-12z M18,-12A6,6,0,0,0,12,-18A6,6,0,0,0,8.143,-16.6L6.858,-18.128A8,8,0,0,1,12,-20A8,8,0,0,1,20,-12L23,-12 19,-7 15,-12z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Calendar -->
+    <DrawingImage x:Key="Icons.MainMenu.Calendar">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <DrawingGroup.Transform>
+                    <TranslateTransform X="112" Y="217" />
+                </DrawingGroup.Transform>
+                <GeometryDrawing>
+                    <GeometryDrawing.Brush>
+                        <SolidColorBrush Color="{StaticResource IconColor1}" Opacity="0" />
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <DrawingGroup Transform="1,0,0,1,116,223">
+                    <GeometryDrawing Brush="{StaticResource IconBrush1}" Geometry="F1 M24,24z M0,0z M-97,-203L-111,-203A1,1,0,0,1,-112,-204L-112,-216A1,1,0,0,1,-111,-217L-109,-217 -109,-216A1,1,0,0,0,-108,-215A1,1,0,0,0,-107,-216L-107,-217 -101,-217 -101,-216A1,1,0,0,0,-100,-215A1,1,0,0,0,-99,-216L-99,-217 -97,-217A1,1,0,0,1,-96,-216L-96,-204A1,1,0,0,1,-97,-203z M-100,-207L-100,-207 -100,-206 -99,-206 -99,-207z M-103,-207L-103,-207 -103,-206 -102,-206 -102,-207z M-106,-207L-106,-207 -106,-206 -105,-206 -105,-207z M-109,-207L-109,-207 -109,-206 -108,-206 -108,-207z M-100,-209L-100,-209 -100,-208 -99,-208 -99,-209z M-103,-209L-103,-209 -103,-208 -102,-208 -102,-209z M-106,-209L-106,-209 -106,-208 -105,-208 -105,-209z M-109,-209L-109,-209 -109,-208 -108,-208 -108,-209z M-100,-211L-100,-210 -99,-210 -99,-211 -100,-211z M-103,-211L-103,-210 -102,-210 -102,-211 -103,-211z M-106,-211L-106,-210 -105,-210 -105,-211 -106,-211z M-109,-211L-109,-210 -108,-210 -108,-211 -109,-211z M-100,-213L-100,-212 -99,-212 -99,-213z M-103,-213L-103,-212 -102,-212 -102,-213z M-106,-213L-106,-212 -105,-212 -105,-213z M-109,-213L-109,-212 -108,-212 -108,-213z" />
+                </DrawingGroup>
+                <DrawingGroup Transform="1,0,0,1,-488.999,162">
+                    <GeometryDrawing Geometry="F1 M24,24z M0,0z M504,-155L504,-158A1,1,0,0,1,505,-159A1,1,0,0,1,506,-158L506,-155A1,1,0,0,1,505,-154A1,1,0,0,1,504,-155z M496,-155L496,-158A1,1,0,0,1,497,-159A1,1,0,0,1,498,-158L498,-155A1,1,0,0,1,497,-154A1,1,0,0,1,496,-155z">
+                        <GeometryDrawing.Brush>
+                            <SolidColorBrush Color="{StaticResource IconColor1}" Opacity="0.5" />
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- User -->
+    <DrawingImage x:Key="Icons.MainMenu.User">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <DrawingGroup.Transform>
+                    <TranslateTransform X="0" Y="18.778999328613281" />
+                </DrawingGroup.Transform>
+                <GeometryDrawing>
+                    <GeometryDrawing.Brush>
+                        <SolidColorBrush Color="{StaticResource IconColor1}" Opacity="0" />
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <DrawingGroup Transform="1,0,0,1,0.275,22.775">
+                    <GeometryDrawing Brush="{StaticResource IconBrush1}" Geometry="F0 M24,24z M0,0z M18.7,-4.075C18.728,-2.475 15.693,-1.775 11.728,-1.775 7.763,-1.775 4.728,-2.475 4.728,-4.075 4.728,-5.675 8.428,-6.075 9.679,-7.414A2.429,2.429,0,0,0,9.925,-9.2C9.485,-9.406 9.132,-10.021 9.111,-11.329 8.702,-11.323 8.44,-11.461 8.366,-11.684A2.535,2.535,0,0,1,8.366,-14.167C7.554,-17.101 9.483,-18.779 11.717,-18.779 13.951,-18.779 15.88,-17.102 15.068,-14.167A2.535,2.535,0,0,1,15.068,-11.684C14.994,-11.461 14.732,-11.323 14.323,-11.329 14.302,-10.022 13.964,-9.407 13.523,-9.2A2.4,2.4,0,0,0,13.723,-7.417C14.975,-6.074,18.67,-5.675,18.7,-4.075z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Settings -->
+
+    <DrawingImage x:Key="Icons.MainMenu.Settings">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <DrawingGroup.Transform>
+                    <TranslateTransform X="0" Y="19.999910354614258" />
+                </DrawingGroup.Transform>
+                <GeometryDrawing>
+                    <GeometryDrawing.Brush>
+                        <SolidColorBrush Color="{StaticResource IconColor1}" Opacity="0" />
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <DrawingGroup Transform="1,0,0,1,2,22">
+                    <GeometryDrawing Brush="{StaticResource IconBrush1}" Geometry="F0 M24,24z M0,0z M10.957,-19.954A10.008,10.008,0,0,0,9.042,-19.954L8.656,-18.021A8.134,8.134,0,0,0,7.156,-17.621L5.852,-19.1A10,10,0,0,0,4.194,-18.143L4.826,-16.276A8.129,8.129,0,0,0,3.726,-15.176L1.859,-15.808A10,10,0,0,0,0.9,-14.148L2.381,-12.848A8.134,8.134,0,0,0,1.981,-11.348L0.0480000000000003,-10.962A10.008,10.008,0,0,0,0.0480000000000003,-9.047L1.981,-8.661A8.134,8.134,0,0,0,2.381,-7.161L0.9,-5.852A10,10,0,0,0,1.857,-4.194L3.724,-4.826A8.129,8.129,0,0,0,4.824,-3.726L4.194,-1.858A10,10,0,0,0,5.852,-0.9L7.152,-2.381A8.134,8.134,0,0,0,8.652,-1.981L9.043,-0.046A10.008,10.008,0,0,0,10.958,-0.046L11.344,-1.979A8.134,8.134,0,0,0,12.844,-2.379L14.148,-0.9A10,10,0,0,0,15.806,-1.857L15.174,-3.724A8.129,8.129,0,0,0,16.274,-4.824L18.141,-4.192A10,10,0,0,0,19.1,-5.852L17.619,-7.152A8.134,8.134,0,0,0,18.019,-8.652L19.952,-9.038A10.008,10.008,0,0,0,19.952,-10.953L18.019,-11.339A8.134,8.134,0,0,0,17.619,-12.839L19.1,-14.139A10,10,0,0,0,18.143,-15.797L16.276,-15.165A8.129,8.129,0,0,0,15.176,-16.265L15.808,-18.132A10,10,0,0,0,14.15,-19.089L12.85,-17.608A8.134,8.134,0,0,0,11.35,-18.008z M9.988,-16.5A6.5,6.5,0,0,1,16.488,-10A6.5,6.5,0,0,1,9.988,-3.5A6.5,6.5,0,0,1,3.488,-10A6.5,6.5,0,0,1,9.988,-16.5z M15.74,-9.667A5.753,5.753,0,0,1,10,-4.25A5.721,5.721,0,0,1,7.418,-4.862L10.192,-9.667z M6.841,-14.8A5.747,5.747,0,0,0,4.25,-10A5.747,5.747,0,0,0,6.841,-5.2L9.615,-10z M15.741,-10.329A5.753,5.753,0,0,0,10,-15.75A5.721,5.721,0,0,0,7.418,-15.138L10.192,-10.333z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- Exit-Left -->
+
+    <DrawingImage x:Key="Icons.MainMenu.Exit-Left">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <DrawingGroup.Transform>
+                    <TranslateTransform X="0" Y="21.000007629394531" />
+                </DrawingGroup.Transform>
+                <GeometryDrawing>
+                    <GeometryDrawing.Brush>
+                        <SolidColorBrush Color="{StaticResource IconColor1}" Opacity="0" />
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,24,24" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <DrawingGroup Transform="1,0,0,1,1,24">
+                    <GeometryDrawing Brush="{StaticResource IconBrush1}" Geometry="F0 M24,24z M0,0z M8,-20.063A8.955,8.955,0,0,1,12,-21A9,9,0,0,1,21,-12A9,9,0,0,1,12,-3A8.955,8.955,0,0,1,8,-3.937L8,-7.529A5.977,5.977,0,0,0,12,-6A6,6,0,0,0,18,-12A6,6,0,0,0,12,-18A5.977,5.977,0,0,0,8,-16.471z M6,-13.68L11.82,-13.68A1.68,1.68,0,0,1,13.5,-12A1.68,1.68,0,0,1,11.82,-10.32L6,-10.32 6,-6 0,-12 6,-18z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+</ResourceDictionary>

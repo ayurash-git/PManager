@@ -8,10 +8,11 @@
     <Application.Resources>
          <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <vmb:ViewModelLocator x:Key="Locator"/>
-                </ResourceDictionary>
+
+                <ResourceDictionary Source="Resources/Styles/Main.xaml"/>
+
             </ResourceDictionary.MergedDictionaries>
+             <vmb:ViewModelLocator x:Key="Locator"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
