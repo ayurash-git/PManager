@@ -5,9 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:l="clr-namespace:PManager.WPF"
         xmlns:vm="clr-namespace:PManager.WPF.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
         Title="{Binding Title}" 
         Height="450" Width="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ShowAllProjectsViewCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     
     <DockPanel>
         <!-- <TextBox Margin="20" Height="20" VerticalAlignment="Top" -->

@@ -37,20 +37,22 @@ namespace PManager.WPF.ViewModels
         #region Текущая дочерняя модель представления
 
         /// <summary> Текущая дочерняя модель представления </summary>
-        private ViewModel _currentViewModel;
+        private ViewModel? _currentViewModel;
         /// <summary> Текущая дочерняя модель представления </summary>
         public ViewModel CurrentViewModel
         {
-            get => _currentViewModel;
+            get => _currentViewModel!;
             private set => Set(ref _currentViewModel, value);
         }
 
         #endregion
 
 
-        #region Команды
+        #region Команда Show AllProjectsView
 
-        private ICommand _showAllProjectsViewCommand;
+        /// <summary> Show AllProjectsView Command </summary>
+        private ICommand? _showAllProjectsViewCommand;
+        /// <summary> Show AllProjectsView Command </summary>
         public ICommand ShowAllProjectsViewCommand => _showAllProjectsViewCommand 
             ??= new RelayCommand(OnShowAllProjectsViewCommandExecuted, CanShowAllProjectsViewCommandExecute);
         
@@ -60,9 +62,15 @@ namespace PManager.WPF.ViewModels
         {
             CurrentViewModel = new AllProjectsViewModel(_projectsRepository);
         }
-        
-        
-        private ICommand _showByDateViewCommand;
+
+        #endregion
+
+
+        #region Команда Show ByDateView
+
+        /// <summary> Show ByDateView Command </summary>
+        private ICommand? _showByDateViewCommand;
+        /// <summary> Show ByDateView Command </summary>
         public ICommand ShowByDateViewCommand => _showByDateViewCommand
             ??= new RelayCommand(OnShowByDateViewCommandExecuted, CanShowByDateViewCommandExecute);
         
@@ -90,13 +98,13 @@ namespace PManager.WPF.ViewModels
             _agenciesRepository = agenciesRepository;
             _projectsService = projectsService;
 
-            var jobs = jobsRepository.Items.Take(19).ToArray();
-            var roles = rolesRepository.Items.Take(12).ToArray();
-            var users = usersRepository.Items.Take(2).ToArray();
-            var agencies = agenciesRepository.Items.Take(9).ToArray();
-            var projects = projectsRepository.Items.Take(1).ToArray();
-
-            var projects_count = _projectsService.Projects.Count();
+            // var jobs = jobsRepository.Items.Take(19).ToArray();
+            // var roles = rolesRepository.Items.Take(12).ToArray();
+            // var users = usersRepository.Items.Take(2).ToArray();
+            // var agencies = agenciesRepository.Items.Take(9).ToArray();
+            // var projects = projectsRepository.Items.Take(1).ToArray();
+            //
+            // var projects_count = _projectsService.Projects.Count();
         }
     }
 }

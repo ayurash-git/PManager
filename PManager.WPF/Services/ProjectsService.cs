@@ -30,8 +30,8 @@ namespace PManager.WPF.Services
             var agency = await _agencies.Items.FirstOrDefaultAsync(a => a.Name == agencyName).ConfigureAwait(false);
             var owner = await _users.Items.FirstOrDefaultAsync(u => u.Username == userName).ConfigureAwait(false);
             
-            if (agency is null) return null;
-            if (owner is null) return null;
+            if (agency is null) return null!;
+            if (owner is null) return null!;
 
             var project = new Project
             {

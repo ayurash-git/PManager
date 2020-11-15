@@ -279,6 +279,12 @@ namespace PManager.EF.Data
                     Name = "SP Zavod", 
                     Agency = _db.Agencies.FirstOrDefault(a => a.Name == "Slava"),
                     Owner = _db.Users.FirstOrDefault(u => u.Username == "ayurash")
+                },
+                new Project
+                {
+                    Name = "Avito",
+                    Agency = _db.Agencies.FirstOrDefault(a => a.Name == "Slava"),
+                    Owner = _db.Users.FirstOrDefault(u => u.Username == "ayurash")
                 }
             };
 
