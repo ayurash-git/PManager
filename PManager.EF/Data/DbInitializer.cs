@@ -35,7 +35,7 @@ namespace PManager.EF.Data
             _logger.LogInformation("Миграция БД выполнена за {0} мс.", timer.ElapsedMilliseconds);
 
             if (await _db.Roles.AnyAsync()) return;
-
+            
             await InitializeGenders();
             await InitializeJobs();
             await InitializeRoles();
@@ -276,15 +276,10 @@ namespace PManager.EF.Data
             {
                 new Project
                 {
-                    Name = "SP Zavod", 
+                    Name = "SP Zavod3", 
                     Agency = _db.Agencies.FirstOrDefault(a => a.Name == "Slava"),
-                    Owner = _db.Users.FirstOrDefault(u => u.Username == "ayurash")
-                },
-                new Project
-                {
-                    Name = "Avito",
-                    Agency = _db.Agencies.FirstOrDefault(a => a.Name == "Slava"),
-                    Owner = _db.Users.FirstOrDefault(u => u.Username == "ayurash")
+                    Owner = _db.Users.FirstOrDefault(u => u.Username == "ayurash"),
+                    DateCreate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)
                 }
             };
 

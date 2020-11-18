@@ -7,7 +7,7 @@ namespace PManager.Domain.Models
 {
     public class Project : NamedDetailedEntity
     {
-        public DateTime DateCreate { get; set; }
+        public DateTime DateCreate { get; set; } 
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
         public DateTime DateDone { get; set; }

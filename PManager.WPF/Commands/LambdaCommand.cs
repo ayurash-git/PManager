@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PManager.WPF.Commands.Base;
+
+
 
 namespace PManager.WPF.Commands
 {
-    internal class RelayCommand : Command
+    internal class LambdaCommand : Command
     {
         private readonly Action<object> _execute;
         private readonly Func<object, bool> _canExecute;
 
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null!)
+        public LambdaCommand(Action<object> execute, Func<object, bool> canExecute = null!)
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;

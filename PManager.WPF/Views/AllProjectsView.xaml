@@ -4,21 +4,35 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PManager.WPF.Views"
+             xmlns:vm="clr-namespace:PManager.WPF.ViewModels"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance {x:Type vm:AllProjectsViewModel}}"
+             
              d:DesignHeight="450" d:DesignWidth="800">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding GetAllProjectsCommand}"/>
+            <i:InvokeCommandAction Command="{Binding CompProjectsAllCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    
 
     <Grid>
         <StackPanel>
         <TextBlock FontSize="30">ALL PROJECTS</TextBlock>
             <TextBlock FontSize="30" Text="{Binding ProjectsCount}"/>
 
+            <!-- <DataGrid ItemsSource="{Binding Projects}"> -->
+            <!--     <DataGrid.Columns> -->
+            <!--         <DataGridTextColumn Header="Id" Binding="{Binding Id}"/> -->
+            <!--         <DataGridTextColumn Header="Name" Binding="{Binding Name}"/> -->
+            <!--         <DataGridTextColumn Header="Agency" Binding="{Binding Agency.Name}"/> -->
+            <!--         <DataGridTextColumn Header="DateCreated" Binding="{Binding DateCreate,  -->
+            <!--             StringFormat=yyyy.MM.dd}"/> -->
+            <!--         ~1~ <DataGridTextColumn Header="Owner" Binding="{Binding Owner.Name}"/> @1@ -->
+            <!--     </DataGrid.Columns> -->
+            <!-- </DataGrid> -->
         </StackPanel>
     </Grid>
 </UserControl>
