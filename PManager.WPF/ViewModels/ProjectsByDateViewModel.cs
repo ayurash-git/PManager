@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows.Input;
-using Microsoft.EntityFrameworkCore;
 using PManager.Domain.Models;
 using PManager.EF.Context;
 using PManager.Interfaces;
 using PManager.WPF.Commands;
-using PManager.WPF.Interfaces;
 using PManager.WPF.ViewModels.Base;
 
 namespace PManager.WPF.ViewModels
 {
-    internal class AllProjectsViewModel : ViewModel
+    internal class ProjectsByDateViewModel : ViewModel
 
     {
+        private readonly PManagerDb _db;
         private readonly IRepository<Project> _projects;
         private readonly IRepository<Agency> _agencies;
         private readonly IRepository<User> _users;
@@ -36,14 +30,26 @@ namespace PManager.WPF.ViewModels
         {
             ProjectsCount = _projects.Items.Count();
 
-            //var projectsAllQuery = _projects.Items.GroupBy(p => p.Id).Select(projects => new { ProjectId = projects.Key, Owner = projects.Owner })
+            var projectsAllQuery = _db.Projects
+                .GroupBy(a => a.Id)
+                .Select(project => new {AgencyId = project.Key, Count = project.Count()})
+                // .Select(project => new { OwnerId = project.Key, Count = project.Count() })
+                .OrderByDescending(project => project.Count)
+                .Take(5)
+                ;
+            var projectsAll = projectsAllQuery.ToArray();
         }
 
         #endregion
 
 
-        public AllProjectsViewModel(IRepository<Project> projects, IRepository<Agency> agencies, IRepository<User> users)
+        public ProjectsByDateViewModel(
+            PManagerDb db,
+            IRepository<Project> projects, 
+            IRepository<Agency> agencies, 
+            IRepository<User> users)
         {
+            _db = db;
             _projects = projects;
             _agencies = agencies;
             _users = users;

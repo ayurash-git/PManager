@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Windows.Input;
 using PManager.Domain.Models;
+using PManager.EF.Context;
 using PManager.Interfaces;
 using PManager.WPF.Commands;
 using PManager.WPF.Interfaces;
@@ -13,7 +14,9 @@ namespace PManager.WPF.ViewModels
         
         
         //private readonly IProjectsService _projectsService;
+        
 
+        private readonly PManagerDb _db;
         private readonly IRepository<Project> _projects;
         private readonly IRepository<Agency> _agencies;
         private readonly IRepository<User> _users;
@@ -52,12 +55,12 @@ namespace PManager.WPF.ViewModels
         private ICommand? _showAllProjectsViewCommand;
         /// <summary> Show AllProjectsView Command </summary>
         public ICommand ShowAllProjectsViewCommand => _showAllProjectsViewCommand 
-            ??= new LambdaCommand(OnShowAllProjectsViewCommandExecuted, CanShowAllProjectsViewCommandExecute);
+            ??= new LambdaCommand(OnShowProjectsAllViewCommandExecuted, CanShowProjectsAllViewCommandExecute);
         
-        private bool CanShowAllProjectsViewCommandExecute(object o) => true;
-        private void OnShowAllProjectsViewCommandExecuted(object o)
+        private bool CanShowProjectsAllViewCommandExecute(object o) => true;
+        private void OnShowProjectsAllViewCommandExecuted(object o)
         {
-            CurrentViewModel = new AllProjectsViewModel(_projects, _agencies, _users);
+            CurrentViewModel = new ProjectsAllViewModel(_db, _projects, _agencies, _users);
         }
 
         #endregion
@@ -69,22 +72,23 @@ namespace PManager.WPF.ViewModels
         private ICommand? _showByDateViewCommand;
         /// <summary> Show ByDateView Command </summary>
         public ICommand ShowByDateViewCommand => _showByDateViewCommand
-            ??= new LambdaCommand(OnShowByDateViewCommandExecuted, CanShowByDateViewCommandExecute);
+            ??= new LambdaCommand(OnShowProjectsByDateViewCommandExecuted, CanShowProjectsByDateViewCommandExecute);
         
-        private bool CanShowByDateViewCommandExecute(object o) => true;
+        private bool CanShowProjectsByDateViewCommandExecute(object o) => true;
         
-        private void OnShowByDateViewCommandExecuted(object o)
+        private void OnShowProjectsByDateViewCommandExecuted(object o)
         {
-            CurrentViewModel = new ByDateViewModel(_projects);
+            CurrentViewModel = new ProjectsByDateViewModel(_db, _projects, _agencies, _users);
         }
 
         #endregion
 
-        public MainWindowViewModel(IRepository<Project> projects, IRepository<Agency> agencies, IRepository<User> users)
+        public MainWindowViewModel(IRepository<Project> projects, IRepository<Agency> agencies, IRepository<User> users, PManagerDb db)
         {
             _projects = projects;
             _agencies = agencies;
             _users = users;
+            _db = db;
 
             // var jobs = jobsRepository.Items.Take(19).ToArray();
             // var roles = rolesRepository.Items.Take(12).ToArray();

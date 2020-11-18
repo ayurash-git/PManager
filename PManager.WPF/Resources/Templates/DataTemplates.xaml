@@ -3,12 +3,12 @@
                     xmlns:vm="clr-namespace:PManager.WPF.ViewModels"
                     xmlns:view="clr-namespace:PManager.WPF.Views">
 
-    <DataTemplate DataType="{x:Type vm:AllProjectsViewModel}">
-        <view:AllProjectsView></view:AllProjectsView>
+    <DataTemplate DataType="{x:Type vm:ProjectsAllViewModel}">
+        <view:ProjectsAllView></view:ProjectsAllView>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:ByDateViewModel}">
-        <view:ByDateView></view:ByDateView>
+    <DataTemplate DataType="{x:Type vm:ProjectsByDateViewModel}">
+        <view:ProjectsByDateView></view:ProjectsByDateView>
     </DataTemplate>
 
 </ResourceDictionary>

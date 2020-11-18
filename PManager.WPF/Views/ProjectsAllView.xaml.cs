@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace PManager.WPF.Views
 {
     /// <summary>
-    /// Логика взаимодействия для AllProjectsView.xaml
+    /// Логика взаимодействия для ByDateView.xaml
     /// </summary>
-    public partial class AllProjectsView : UserControl
+    public partial class ProjectsAllView : UserControl
     {
-        public AllProjectsView()
+        public ProjectsAllView()
         {
             InitializeComponent();
         }
