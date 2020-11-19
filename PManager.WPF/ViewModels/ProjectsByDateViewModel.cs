@@ -11,32 +11,38 @@ namespace PManager.WPF.ViewModels
     internal class ProjectsByDateViewModel : ViewModel
 
     {
-        private readonly PManagerDb _db;
         private readonly IRepository<Project> _projects;
         private readonly IRepository<Agency> _agencies;
         private readonly IRepository<User> _users;
 
-        private int _projectsCount;
 
-        #region Команда CompProjectsAll
+        #region Команда CompProjectsByDate
         
-        private ICommand? _compProjectsAllCommand;
+        private ICommand? _compProjectsByDateCommand;
         
-        public ICommand CompProjectsAllCommand => _compProjectsAllCommand ??= new LambdaCommand(OnCompProjectsAllCommandExecuted, CanCompProjectsAllCommandExecute);
-        public int ProjectsCount { get => _projectsCount; set => Set(ref _projectsCount, value); }
+        public ICommand CompProjectsByDateCommand => _compProjectsByDateCommand ??= new LambdaCommand(OnCompProjectsByDateCommandExecuted);
 
-        private bool CanCompProjectsAllCommandExecute(object o) => true;
-        private void OnCompProjectsAllCommandExecuted(object o)
+        private void OnCompProjectsByDateCommandExecuted(object o)
         {
-            ProjectsCount = _projects.Items.Count();
 
-            var projectsAllQuery = _db.Projects
+            // var projectsAllQuery = _db.Projects
+            //     .GroupBy(a => a.Id)
+            //     .Select(project => new {AgencyId = project.Key, Count = project.Count()})
+            //     .OrderByDescending(project => project.Count)
+            //     .Take(5)
+            //     .Join(_db.Agencies, 
+            //         projects => projects.AgencyId,
+            //         agencies => agencies.Id,
+            //         (projects, agencies) => new { projects, agencies});
+
+            var projectsAllQuery = _projects.Items
                 .GroupBy(a => a.Id)
-                .Select(project => new {AgencyId = project.Key, Count = project.Count()})
-                // .Select(project => new { OwnerId = project.Key, Count = project.Count() })
-                .OrderByDescending(project => project.Count)
-                .Take(5)
-                ;
+                .Select(project => new { AgencyId = project.Key })
+                .Join(_agencies.Items,
+                    projects => projects.AgencyId,
+                    agencies => agencies.Id,
+                    (projects, agencies) => new { projects, agencies });
+
             var projectsAll = projectsAllQuery.ToArray();
         }
 
@@ -44,12 +50,10 @@ namespace PManager.WPF.ViewModels
 
 
         public ProjectsByDateViewModel(
-            PManagerDb db,
             IRepository<Project> projects, 
             IRepository<Agency> agencies, 
             IRepository<User> users)
         {
-            _db = db;
             _projects = projects;
             _agencies = agencies;
             _users = users;

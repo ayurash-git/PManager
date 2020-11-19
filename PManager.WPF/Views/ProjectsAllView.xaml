@@ -5,10 +5,59 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PManager.WPF.Views"
              xmlns:vm="clr-namespace:PManager.WPF.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:m="clr-namespace:PManager.WPF.Models"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance {x:Type vm:ProjectsAllViewModel}}"
+             d:DataContext="{d:DesignInstance {x:Type vm:ProjectsAllViewModel}, IsDesignTimeCreatable=True}"
              d:DesignHeight="450" d:DesignWidth="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CompProjectsAllCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+
     <Grid>
-        <TextBlock FontSize="30">Projects All View</TextBlock>
+        <StackPanel>
+            <TextBlock FontSize="30">Projects All View</TextBlock>
+            
+            <TextBlock FontSize="30" Text="{Binding ProjectsAllInfo.Count}"/>
+            <!-- <TextBlock FontSize="30" Text="{Binding TestValue}"/> -->
+
+            <GroupBox Header ="Projects">
+                <GroupBox.Resources>
+                    <CollectionViewSource x:Key="ProjectsView" Source="{Binding ProjectsAllInfo}">
+                
+                    </CollectionViewSource>
+                </GroupBox.Resources>
+
+                <StackPanel>
+                    <TextBox Text ="{Binding ProjectsFilter, UpdateSourceTrigger=PropertyChanged}"/>
+                
+                    <ListBox MinWidth="300" ItemsSource="{Binding Source={StaticResource ProjectsView}}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding ProjName}"></TextBox>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </GroupBox>
+            <DataGrid ItemsSource="{Binding ProjectsAllInfo}" AutoGenerateColumns="False">
+                
+                <DataGrid.Columns>
+                    
+                    <DataGridTextColumn Header="Id" Binding="{Binding ProjId }"/>
+                    <DataGridTextColumn Header="Id" Binding="{Binding ProjName}"/>
+                    <DataGridTextColumn Header="Agency" Binding="{Binding Agency.Name}"/>
+                    <DataGridTextColumn Header="Owner" Binding="{Binding Owner.FirstName}"/>
+                    <!-- <DataGridTextColumn Header="Agency" Binding="{Binding Agency}"/> -->
+                    <!-- <DataGridTextColumn Header="Agency" Binding="{Binding Agency.Name}"/> -->
+                    <!-- <DataGridTextColumn Header="DateCreated" Binding="{Binding DateCreate, -->
+                    <!--     StringFormat=yyyy.MM.dd}"/> -->
+                    <!-- <DataGridTextColumn Header="Owner" Binding="{Binding Owner.Name}"/> -->
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
     </Grid>
 </UserControl>

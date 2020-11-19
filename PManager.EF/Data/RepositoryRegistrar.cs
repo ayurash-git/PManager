@@ -10,7 +10,7 @@ namespace PManager.EF.Data
             .AddTransient<IRepository<Gender>, DbRepository<Gender>>()
             .AddTransient<IRepository<Job>, JobsRepository>()
             .AddTransient<IRepository<Role>, DbRepository<Role>>()
-            .AddTransient<IRepository<User>, DbRepository<User>> ()
+            .AddTransient<IRepository<User>, UsersRepository> ()
             .AddTransient<IRepository<Agency>, DbRepository<Agency>>()
             .AddTransient<IRepository<Project>, ProjectsRepository>()
         ;

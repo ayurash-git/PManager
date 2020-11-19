@@ -13,7 +13,7 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding CompProjectsAllCommand}"/>
+            <i:InvokeCommandAction Command="{Binding CompProjectsByDateCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     
@@ -21,14 +21,14 @@
     <Grid>
         <StackPanel>
             <TextBlock FontSize="30">Projects ByDate View</TextBlock>
-            <TextBlock FontSize="30" Text="{Binding ProjectsCount}"/>
+            <!-- <TextBlock FontSize="30" Text="{Binding Pro}"/> -->
 
-            <!-- <DataGrid ItemsSource="{Binding Projects}"> -->
+            <!-- <DataGrid ItemsSource="{Binding ProjectsAll}"> -->
             <!--     <DataGrid.Columns> -->
-            <!--         <DataGridTextColumn Header="Id" Binding="{Binding Id}"/> -->
+            <!--         <DataGridTextColumn Header="Id" Binding="{Binding }"/> -->
             <!--         <DataGridTextColumn Header="Name" Binding="{Binding Name}"/> -->
             <!--         <DataGridTextColumn Header="Agency" Binding="{Binding Agency.Name}"/> -->
-            <!--         <DataGridTextColumn Header="DateCreated" Binding="{Binding DateCreate,  -->
+            <!--         <DataGridTextColumn Header="DateCreated" Binding="{Binding DateCreate, -->
             <!--             StringFormat=yyyy.MM.dd}"/> -->
             <!--         ~1~ <DataGridTextColumn Header="Owner" Binding="{Binding Owner.Name}"/> @1@ -->
             <!--     </DataGrid.Columns> -->

@@ -10,7 +10,7 @@ using PManager.Interfaces;
 
 namespace PManager.EF
 {
-    internal class DbRepository<T> : IRepository<T> where T : Entity, new()
+    public class DbRepository<T> : IRepository<T> where T : Entity, new()
     {
         private readonly PManagerDb _db;
         private readonly DbSet<T> _set;
@@ -95,20 +95,20 @@ namespace PManager.EF
         #endregion
     }
 
-    class JobsRepository : DbRepository<Job>
+    public class JobsRepository : DbRepository<Job>
     {
         public override IQueryable<Job> Items => base.Items.Include(item => item.Roles);
         public JobsRepository(PManagerDb db) : base(db) { }
     }
-    
-    class UsersRepository : DbRepository<User>
+
+    public class UsersRepository : DbRepository<User>
     {
         public override IQueryable<User> Items => base.Items
             .Include(item => item.Role)
             .Include(item => item.Gender);
         public UsersRepository(PManagerDb db) : base(db) { }
     }
-    class ProjectsRepository : DbRepository<Project>
+    public class ProjectsRepository : DbRepository<Project>
     {
         public override IQueryable<Project> Items => base.Items
             .Include(item => item.Agency)

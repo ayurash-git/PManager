@@ -13,6 +13,8 @@ namespace PManager.WPF
     /// </summary>
     public partial class App : Application
     {
+        public static bool IsDesignTime { get; private set; } = true;
+
         private static IHost? _host;
         public static IHost Host => _host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
 
@@ -26,6 +28,8 @@ namespace PManager.WPF
 
         protected override async void OnStartup(StartupEventArgs e)
         {
+            IsDesignTime = false;
+
             var host = Host;
 
             using (var scope = Services.CreateScope())
