@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
+using PManager.WPF.ViewModels.Windows;
 
 namespace PManager.WPF.ViewModels.Base
 {
-    static class ViewModelRegistrar
+    internal static class ViewModelRegistrar
     {
         public static IServiceCollection AddViewModels(this IServiceCollection services) => services
             .AddSingleton<MainWindowViewModel>()

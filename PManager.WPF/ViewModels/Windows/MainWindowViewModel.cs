@@ -1,13 +1,10 @@
-﻿using System.Linq;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using MathCore.WPF.Commands;
 using MathCore.WPF.ViewModels;
 using PManager.Domain.Models;
-using PManager.EF.Context;
 using PManager.Interfaces;
-using PManager.WPF.Interfaces;
 
-namespace PManager.WPF.ViewModels
+namespace PManager.WPF.ViewModels.Windows
 {
     internal class MainWindowViewModel : ViewModel
     {
@@ -78,7 +75,7 @@ namespace PManager.WPF.ViewModels
         
         private void OnShowProjectsByDateViewCommandExecuted()
         {
-            CurrentViewModel = new ProjectsByDateViewModel(_projects, _agencies, _users);
+            CurrentViewModel = new ProjectsByDateViewModel();
         }
 
         #endregion

@@ -8,7 +8,7 @@ using PManager.WPF.ViewModels.Base;
 
 namespace PManager.WPF.ViewModels
 {
-    class UserSettingsViewModel : ViewModel
+    internal class UserSettingsViewModel : ViewModel
     {
     }
 }

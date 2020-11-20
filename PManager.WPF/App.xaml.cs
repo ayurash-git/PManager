@@ -8,9 +8,6 @@ using PManager.WPF.ViewModels.Base;
 
 namespace PManager.WPF
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         public static bool IsDesignTime { get; private set; } = true;

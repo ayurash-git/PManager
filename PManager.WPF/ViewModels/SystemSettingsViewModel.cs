@@ -8,7 +8,7 @@ using PManager.WPF.ViewModels.Base;
 
 namespace PManager.WPF.ViewModels
 {
-    class SystemSettingsViewModel : ViewModel
+    internal class SystemSettingsViewModel : ViewModel
     {
     }
 }

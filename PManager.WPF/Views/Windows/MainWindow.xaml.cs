@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace PManager.WPF
+namespace PManager.WPF.Views.Windows
 {
     public partial class MainWindow : Window
     {

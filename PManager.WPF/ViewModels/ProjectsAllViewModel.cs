@@ -10,11 +10,10 @@ using PManager.Domain.Models;
 using PManager.Interfaces;
 using PManager.WPF.Models;
 using PManager.WPF.Services;
-using PManager.WPF.ViewModels;
 
 namespace PManager.WPF.ViewModels
 {
-    class ProjectsAllViewModel : ViewModel
+    internal class ProjectsAllViewModel : ViewModel
     {
 
         private readonly IRepository<Project> _projects = null!;
