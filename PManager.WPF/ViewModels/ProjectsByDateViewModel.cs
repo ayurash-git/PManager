@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Windows.Input;
+using MathCore.WPF.Commands;
+using MathCore.WPF.ViewModels;
 using PManager.Domain.Models;
 using PManager.EF.Context;
 using PManager.Interfaces;
-using PManager.WPF.Commands;
-using PManager.WPF.ViewModels.Base;
 
 namespace PManager.WPF.ViewModels
 {
@@ -22,7 +22,7 @@ namespace PManager.WPF.ViewModels
         
         public ICommand CompProjectsByDateCommand => _compProjectsByDateCommand ??= new LambdaCommand(OnCompProjectsByDateCommandExecuted);
 
-        private void OnCompProjectsByDateCommandExecuted(object o)
+        private void OnCompProjectsByDateCommandExecuted()
         {
 
             // var projectsAllQuery = _db.Projects

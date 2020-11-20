@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MathCore.WPF.Commands;
+using MathCore.WPF.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using PManager.Domain.Models;
 using PManager.Interfaces;
 using PManager.WPF.Models;
 using PManager.WPF.Services;
-using PManager.WPF.ViewModels.Base;
+using PManager.WPF.ViewModels;
 
 namespace PManager.WPF.ViewModels
 {
@@ -71,7 +72,6 @@ namespace PManager.WPF.ViewModels
 
         public ProjectsAllViewModel()
         {
-            
             if (!App.IsDesignTime)
             {
                 throw new InvalidOperationException("Данный конструктор предназначен только для дизайнера VisualStudio");

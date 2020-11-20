@@ -1,9 +1,8 @@
 ﻿using PManager.Domain.Models;
-using PManager.Domain.Models.Base;
 
 namespace PManager.WPF.Models
 {
-    internal class ProjectsAll
+    public class ProjectsAll
     {
         public int ProjId { get; set; }
         public string? ProjName { get; set; }

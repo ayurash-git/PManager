@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Windows.Input;
+using MathCore.WPF.Commands;
+using MathCore.WPF.ViewModels;
 using PManager.Domain.Models;
 using PManager.EF.Context;
 using PManager.Interfaces;
-using PManager.WPF.Commands;
 using PManager.WPF.Interfaces;
-using PManager.WPF.ViewModels.Base;
 
 namespace PManager.WPF.ViewModels
 {
@@ -56,8 +56,8 @@ namespace PManager.WPF.ViewModels
         public ICommand ShowAllProjectsViewCommand => _showAllProjectsViewCommand 
             ??= new LambdaCommand(OnShowProjectsAllViewCommandExecuted, CanShowProjectsAllViewCommandExecute);
         
-        private bool CanShowProjectsAllViewCommandExecute(object o) => true;
-        private void OnShowProjectsAllViewCommandExecuted(object o)
+        private bool CanShowProjectsAllViewCommandExecute() => true;
+        private void OnShowProjectsAllViewCommandExecuted()
         {
             CurrentViewModel = new ProjectsAllViewModel(_projects);
             // CurrentViewModel = new ProjectsAllViewModel(_projects, _agencies, _users);
@@ -74,9 +74,9 @@ namespace PManager.WPF.ViewModels
         public ICommand ShowByDateViewCommand => _showByDateViewCommand
             ??= new LambdaCommand(OnShowProjectsByDateViewCommandExecuted, CanShowProjectsByDateViewCommandExecute);
         
-        private bool CanShowProjectsByDateViewCommandExecute(object o) => true;
+        private bool CanShowProjectsByDateViewCommandExecute() => true;
         
-        private void OnShowProjectsByDateViewCommandExecuted(object o)
+        private void OnShowProjectsByDateViewCommandExecuted()
         {
             CurrentViewModel = new ProjectsByDateViewModel(_projects, _agencies, _users);
         }
