@@ -22,27 +22,7 @@
             <TextBlock FontSize="30">Projects All View</TextBlock>
             
             <TextBlock FontSize="30" Text="{Binding ProjectsAllInfo.Count}"/>
-            <!-- <TextBlock FontSize="30" Text="{Binding TestValue}"/> -->
-
-            <GroupBox Header ="Projects">
-                <GroupBox.Resources>
-                    <CollectionViewSource x:Key="ProjectsView" Source="{Binding ProjectsAllInfo}">
-                
-                    </CollectionViewSource>
-                </GroupBox.Resources>
-
-                <StackPanel>
-                    <TextBox Text ="{Binding ProjectsFilter, UpdateSourceTrigger=PropertyChanged}"/>
-                
-                    <ListBox MinWidth="300" ItemsSource="{Binding Source={StaticResource ProjectsView}}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBox Text="{Binding ProjName}"></TextBox>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </StackPanel>
-            </GroupBox>
+            
             <DataGrid ItemsSource="{Binding ProjectsAllInfo}" AutoGenerateColumns="False">
                 
                 <DataGrid.Columns>

@@ -20,28 +20,31 @@ namespace PManager.WPF.ViewModels
 {
     class ProjectsAllViewModel : ViewModel
     {
-        public string TestValue { get; } = "Тестовые данные";
 
-        private readonly IRepository<Project> _projects;
-        private readonly IRepository<Agency> _agencies;
-        private readonly IRepository<User> _users;
+        private readonly IRepository<Project> _projects = null!;
+        private readonly IRepository<Agency> _agencies = null!;
+        private readonly IRepository<User> _users = null!;
 
         public ObservableCollection<ProjectsAll> ProjectsAllInfo { get; set; } = new ObservableCollection<ProjectsAll>();
 
-        private string _projectFilter;
+        #region Projects Filter
 
-        public string ProjectFilter
-        {
-            get => _projectFilter;
-            set
-            {
-                if (Set(ref _projectFilter, value))
-                    _projectsViewSource.View.Refresh();
-            }
-        }
+        // private string _projectFilter;
 
-        private readonly CollectionViewSource _projectsViewSource;
-        public ICollectionView ProjectsView => _projectsViewSource.View;
+        // public string ProjectFilter
+        // {
+        //     get => _projectFilter;
+        //     set
+        //     {
+        //         if (Set(ref _projectFilter, value))
+        //             _projectsViewSource.View.Refresh();
+        //     }
+        // }
+
+        // private readonly CollectionViewSource _projectsViewSource;
+        // public ICollectionView ProjectsView => _projectsViewSource.View;
+
+        #endregion
 
         
 
@@ -104,19 +107,19 @@ namespace PManager.WPF.ViewModels
             _agencies = agencies;
             _users = users;
             
-            _projectsViewSource = new CollectionViewSource
-            {
-                Source = _projects.Items.ToArray(),
-                SortDescriptions = { new SortDescription(nameof(Project.Name), ListSortDirection.Ascending)}
-            };
-            _projectsViewSource.Filter += OnProjectsFilter;
+            // _projectsViewSource = new CollectionViewSource
+            // {
+            //     Source = _projects.Items.ToArray(),
+            //     SortDescriptions = { new SortDescription(nameof(Project.Name), ListSortDirection.Ascending)}
+            // };
+            // _projectsViewSource.Filter += OnProjectsFilter;
         }
 
-        private void OnProjectsFilter(object sender, FilterEventArgs e)
-        {
-            if(!(e.Item is Project project) || string.IsNullOrEmpty(ProjectFilter)) return;
-            if(!project.Name.Contains(ProjectFilter))
-                e.Accepted = false;
-        }
+        // private void OnProjectsFilter(object sender, FilterEventArgs e)
+        // {
+        //     if(!(e.Item is Project project) || string.IsNullOrEmpty(ProjectFilter)) return;
+        //     if(!project.Name.Contains(ProjectFilter))
+        //         e.Accepted = false;
+        // }
     }
 }
