@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Data;
 using System.Windows.Input;
+using MathCore.WPF.Commands;
+using Microsoft.EntityFrameworkCore;
 using PManager.Domain.Models;
-using PManager.EF;
-using PManager.EF.Context;
 using PManager.Interfaces;
-using PManager.WPF.Commands;
 using PManager.WPF.Models;
-using PManager.WPF.ViewModels.Base;
 using PManager.WPF.Services;
+using PManager.WPF.ViewModels.Base;
 
 namespace PManager.WPF.ViewModels
 {
@@ -22,8 +17,8 @@ namespace PManager.WPF.ViewModels
     {
 
         private readonly IRepository<Project> _projects = null!;
-        private readonly IRepository<Agency> _agencies = null!;
-        private readonly IRepository<User> _users = null!;
+        // private readonly IRepository<Agency> _agencies = null!;
+        // private readonly IRepository<User> _users = null!;
 
         public ObservableCollection<ProjectsAll> ProjectsAllInfo { get; set; } = new ObservableCollection<ProjectsAll>();
 
@@ -49,19 +44,14 @@ namespace PManager.WPF.ViewModels
         
 
         
-        #region Команда CompProjectsAll
+        #region Команда ComputeProjectsAllAsync
 
-        private ICommand? _compProjectsAllCommand;
+        private ICommand? _computeProjectsAllCommand;
 
-        public ICommand CompProjectsAllCommand => _compProjectsAllCommand ??= new LambdaCommand(OnCompProjectsAllCommandExecuted);
-
-        private void OnCompProjectsAllCommandExecuted(object o)
-        {
-            CompProjectsAll();
-
-        }
-
-        private void CompProjectsAll()
+        public ICommand ComputeProjectsAllCommand => _computeProjectsAllCommand ??= new LambdaCommandAsync(OnComputeProjectsAllCommandExecuted);
+        
+        private async Task OnComputeProjectsAllCommandExecuted() => await ComputeProjectsAllAsync();
+        private async Task ComputeProjectsAllAsync()
         {
             var projectsAllQuery = _projects.Items
                 .Select(projects => new ProjectsAll
@@ -71,16 +61,8 @@ namespace PManager.WPF.ViewModels
                     Owner = projects.Owner,
                     Agency = projects.Agency
                 });
-
-
-            //ProjectsAllInfo.AddClear(projectsAllQuery.ToArray());
-
-            ProjectsAllInfo.Clear();
-            foreach (var projects in projectsAllQuery.ToArray())
-            {
-                ProjectsAllInfo.Add(projects);
-            }
             
+            ProjectsAllInfo.AddClear(await projectsAllQuery.ToArrayAsync());
         }
 
         #endregion
@@ -99,13 +81,14 @@ namespace PManager.WPF.ViewModels
        
 
         public ProjectsAllViewModel(
-            IRepository<Project> projects,
-            IRepository<Agency> agencies,
-            IRepository<User> users)
+            IRepository<Project> projects
+            // IRepository<Agency> agencies,
+            // IRepository<User> users
+            )
         {
             _projects = projects;
-            _agencies = agencies;
-            _users = users;
+            // _agencies = agencies;
+            // _users = users;
             
             // _projectsViewSource = new CollectionViewSource
             // {

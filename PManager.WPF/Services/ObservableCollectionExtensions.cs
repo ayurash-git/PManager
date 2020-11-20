@@ -11,11 +11,8 @@ namespace PManager.WPF.Services
     {
         public static void AddClear<T>(this ObservableCollection<T> collection, IEnumerable<T> items)
         {
-            foreach (var item in items)
-            {
-                collection.Clear();
-                collection.Add(item);
-            }
+            collection.Clear();
+            collection.Add(items);
         }
         public static void Add<T>(this ObservableCollection<T> collection, IEnumerable<T> items)
         {

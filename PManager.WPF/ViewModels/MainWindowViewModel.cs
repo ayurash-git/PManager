@@ -59,7 +59,8 @@ namespace PManager.WPF.ViewModels
         private bool CanShowProjectsAllViewCommandExecute(object o) => true;
         private void OnShowProjectsAllViewCommandExecuted(object o)
         {
-            CurrentViewModel = new ProjectsAllViewModel(_projects, _agencies, _users);
+            CurrentViewModel = new ProjectsAllViewModel(_projects);
+            // CurrentViewModel = new ProjectsAllViewModel(_projects, _agencies, _users);
         }
 
         #endregion

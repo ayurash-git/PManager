@@ -12,7 +12,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding CompProjectsAllCommand}"/>
+            <i:InvokeCommandAction Command="{Binding ComputeProjectsAllCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
